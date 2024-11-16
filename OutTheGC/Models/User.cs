@@ -10,5 +10,8 @@ public class User
     public string ImageUrl { get; set; }
     public DateTime DateJoined { get; set; }
     public string Uid { get; set; }
+    List<Activity> Activities { get; set; }
+    List <Comment> Comments { get; set; }
+    List <Trip> Trips { get; set; }
 }
 
