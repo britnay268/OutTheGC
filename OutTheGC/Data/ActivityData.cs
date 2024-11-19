@@ -16,7 +16,7 @@ public class ActivityData
             Duration = 8.5M,
             Cost = 300M,
             CategoryId = new Guid("72ff3052-5d20-4996-afec-a837d4df2904"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("0eaed767-eecd-4d19-a853-9da895e78057"),
             CreatedAt = new DateTime(2024, 1, 15),
             UpdatedAt = new DateTime(2024, 1, 16)
@@ -31,7 +31,7 @@ public class ActivityData
             Duration = 4.0M,
             Cost = 200M,
             CategoryId = new Guid("a143452f-7b59-4082-8bfa-44faa0d963ed"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("0eaed767-eecd-4d19-a853-9da895e78057"),
             CreatedAt = new DateTime(2024, 1, 16),
             UpdatedAt = new DateTime(2024, 1, 17)
@@ -46,7 +46,7 @@ public class ActivityData
             Duration = 6.0M,
             Cost = 150M,
             CategoryId = new Guid("48876876-6725-4225-9ae4-0279e87ce888"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("0eaed767-eecd-4d19-a853-9da895e78057"),
             CreatedAt = new DateTime(2024, 1, 17),
             UpdatedAt = new DateTime(2024, 1, 18)
@@ -61,7 +61,7 @@ public class ActivityData
             Duration = 6.0M,
             Cost = 400M,
             CategoryId = new Guid("27b9d332-04d0-4c7e-8196-ef38fb4779cc"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc"),
             CreatedAt = new DateTime(2023, 12, 2),
             UpdatedAt = new DateTime(2023, 12, 5)
@@ -76,7 +76,7 @@ public class ActivityData
             Duration = 5.5M,
             Cost = 100M,
             CategoryId = new Guid("a143452f-7b59-4082-8bfa-44faa0d963ed"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc"),
             CreatedAt = new DateTime(2023, 12, 5),
             UpdatedAt = new DateTime(2023, 12, 7)
@@ -91,7 +91,7 @@ public class ActivityData
             Duration = 2.0M,
             Cost = 120M,
             CategoryId = new Guid("48876876-6725-4225-9ae4-0279e87ce888"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc"),
             CreatedAt = new DateTime(2023, 12, 7),
             UpdatedAt = new DateTime(2023, 12, 8)
@@ -106,7 +106,7 @@ public class ActivityData
             Duration = 7.0M,
             Cost = 200M,
             CategoryId = new Guid("a143452f-7b59-4082-8bfa-44faa0d963ed"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("67a99b92-3485-4d39-8bce-33fe4fccfc85"),
             CreatedAt = new DateTime(2024, 2, 10),
             UpdatedAt = new DateTime(2024, 2, 12)
@@ -121,7 +121,7 @@ public class ActivityData
             Duration = 3.5M,
             Cost = 80M,
             CategoryId = new Guid("72ff3052-5d20-4996-afec-a837d4df2904"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("67a99b92-3485-4d39-8bce-33fe4fccfc85"),
             CreatedAt = new DateTime(2024, 2, 12),
             UpdatedAt = new DateTime(2024, 2, 15)
@@ -136,7 +136,7 @@ public class ActivityData
             Duration = 1.5M,
             Cost = 40M,
             CategoryId = new Guid("48876876-6725-4225-9ae4-0279e87ce888"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("67a99b92-3485-4d39-8bce-33fe4fccfc85"),
             CreatedAt = new DateTime(2024, 2, 15),
             UpdatedAt = new DateTime(2024, 2, 17)
@@ -151,7 +151,7 @@ public class ActivityData
             Duration = 3.0M,
             Cost = 50M,
             CategoryId = new Guid("a0254d5f-f540-44df-908b-d33d7c0da285"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("59c5b94d-8015-48cd-bd86-0dbe486c4719"),
             CreatedAt = new DateTime(2024, 1, 20),
             UpdatedAt = new DateTime(2024, 1, 22)
@@ -166,7 +166,7 @@ public class ActivityData
             Duration = 2.0M,
             Cost = 75M,
             CategoryId = new Guid("a143452f-7b59-4082-8bfa-44faa0d963ed"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("59c5b94d-8015-48cd-bd86-0dbe486c4719"),
             CreatedAt = new DateTime(2024, 1, 22),
             UpdatedAt = new DateTime(2024, 1, 23)
@@ -181,7 +181,7 @@ public class ActivityData
             Duration = 4.0M,
             Cost = 40M,
             CategoryId = new Guid("a0254d5f-f540-44df-908b-d33d7c0da285"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("59c5b94d-8015-48cd-bd86-0dbe486c4719"),
             CreatedAt = new DateTime(2024, 1, 23),
             UpdatedAt = new DateTime(2024, 1, 24)
@@ -196,7 +196,7 @@ public class ActivityData
             Duration = 8.0M,
             Cost = 150M,
             CategoryId = new Guid("72ff3052-5d20-4996-afec-a837d4df2904"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("24fda663-5bf9-4e0d-8efd-111ae512dff5"),
             CreatedAt = new DateTime(2024, 2, 5),
             UpdatedAt = new DateTime(2024, 2, 6)
@@ -211,7 +211,7 @@ public class ActivityData
             Duration = 2.5M,
             Cost = 70M,
             CategoryId = new Guid("48876876-6725-4225-9ae4-0279e87ce888"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc"),
             CreatedAt = new DateTime(2024, 2, 6),
             UpdatedAt = new DateTime(2024, 2, 7)
@@ -226,7 +226,7 @@ public class ActivityData
             Duration = 4.0M,
             Cost = 120M,
             CategoryId = new Guid("a143452f-7b59-4082-8bfa-44faa0d963ed"),
-            WebsiteUrl = null,
+            WebsiteUrl = "",
             UserId = new Guid("24fda663-5bf9-4e0d-8efd-111ae512dff5"),
             CreatedAt = new DateTime(2024, 2, 7),
             UpdatedAt = new DateTime(2024, 2, 8)
