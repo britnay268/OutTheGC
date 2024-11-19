@@ -11,7 +11,7 @@ public class UserData
             Id = new Guid("0eaed767-eecd-4d19-a853-9da895e78057"),
             FullName = "Britnay Gore",
             Email = "britnaygore268@gmail.com",
-            Bio = """a ut erat id mauris vulputate elementum. ""am varius. ""a facilisi.",
+            Bio = "a ut erat id mauris vulputate elementumam varius.",
             ImageUrl = "",
             DateJoined = new DateTime(2017, 8, 15),
             Uid = ""
