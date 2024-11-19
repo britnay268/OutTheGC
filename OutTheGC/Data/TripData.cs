@@ -11,14 +11,14 @@ public class TripData
             Title = "Summer Getaway",
             Notes = "A relaxing trip to the beach to unwind and explore new places.",
             Destination = "Maldives",
-            StartDate = new DateTime(6, 15, 2024),
-            EndDate = new DateTime(6, 22, 2024),
+            StartDate = new DateTime(2024, 6, 15),
+            EndDate = new DateTime(2024, 6, 22),
             Status = "Planned",
             Budget = 3500.00M,
             ImageUrl = "https =//example.com/images/maldives.jpg",
             UserId = new Guid("0eaed767-eecd-4d19-a853-9da895e78057"),
-            CreatedAt = new DateTime(1, 15, 2024),
-            UpdatedAt = new DateTime(2, 22, 2024)
+            CreatedAt = new DateTime(2024, 1, 15),
+            UpdatedAt = new DateTime(2024, 2, 22)
         },
         new(){
             Id = new Guid("0eb66928-c2b0-4eea-9e4a-f7363fc98778"),
