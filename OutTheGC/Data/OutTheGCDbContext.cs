@@ -48,11 +48,17 @@ public class OutTheGCDbContext : DbContext
             .HasForeignKey(e => e.ActivityId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        // A trip can have many users and vice versa
         modelBuilder.Entity<User>()
             .HasMany(e => e.Trips)
             .WithMany(e => e.Participants)
             .UsingEntity<UserTrip>();
 
+        // Trip can have one owner
+        modelBuilder.Entity<Trip>()
+            .HasOne(e => e.Owner)            
+            .WithMany()                      
+            .HasForeignKey(e => e.UserId);
 
         modelBuilder.Entity<Activity>().HasData(ActivityData.Activities);
         modelBuilder.Entity<Category>().HasData(CategoryData.Categories);
