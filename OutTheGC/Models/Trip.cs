@@ -17,4 +17,5 @@ public class Trip
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public List<Activity> Activities { get; set; }
+    public List<User> Participants { get; set; }
 }

@@ -25,6 +25,12 @@ public class UserVoteData
 			UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc"),
 			ActivityId = new Guid("8d69e4e8-62b1-465d-bfc7-1a94c3d07a71")
 
+        },
+		new()
+		{
+            Id = Guid.NewGuid(),
+            UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc"),
+			ActivityId = new Guid("64f3cda1-70cf-4b52-99b2-d9c60a5b5898")
         }
 	};
 }

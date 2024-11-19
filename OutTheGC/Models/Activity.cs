@@ -19,6 +19,6 @@ public class Activity
     public User User { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    List<Comment> Comments { get; set; }
+    public List<Comment> Comments { get; set; }
 }
 

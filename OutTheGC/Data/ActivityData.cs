@@ -188,7 +188,7 @@ public class ActivityData
         },
         new(){
             Id = new Guid("64f3cda1-70cf-4b52-99b2-d9c60a5b5898"),
-            TripId = new Guid("4da6ceb3-2c4d-475f-9afd-3eecd34d1523"),
+            TripId = new Guid("172d5607-5dbd-4361-bf3f-fa76bfb84f70"),
             Title = "Beach Day",
             Notes = "Spend a day on the pristine beach, enjoying the sun and clear blue waters.",
             Location = "Paradise Beach",
@@ -203,7 +203,7 @@ public class ActivityData
         },
         new(){
             Id = new Guid("9b0ecf93-c42d-4c45-9ecb-85b8fe7e2d7c"),
-            TripId = new Guid("4da6ceb3-2c4d-475f-9afd-3eecd34d1523"),
+            TripId = new Guid("172d5607-5dbd-4361-bf3f-fa76bfb84f70"),
             Title = "Tropical Drinks Tasting",
             Notes = "Savor the best tropical cocktails and exotic juices.",
             Location = "Tropical Bar",
@@ -212,13 +212,13 @@ public class ActivityData
             Cost = 70M,
             CategoryId = new Guid("48876876-6725-4225-9ae4-0279e87ce888"),
             WebsiteUrl = null,
-            UserId = new Guid("24fda663-5bf9-4e0d-8efd-111ae512dff5"),
+            UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc"),
             CreatedAt = new DateTime(2024, 2, 6),
             UpdatedAt = new DateTime(2024, 2, 7)
         },
         new(){
             Id = new Guid("92d62312-4397-4c9d-9172-2c8a53e8c6a4"),
-            TripId = new Guid("4da6ceb3-2c4d-475f-9afd-3eecd34d1523"),
+            TripId = new Guid("172d5607-5dbd-4361-bf3f-fa76bfb84f70"),
             Title = "Snorkeling Expedition",
             Notes = "Explore the underwater world, discovering vibrant marine life.",
             Location = "Coral Reef Bay",
