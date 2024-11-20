@@ -15,7 +15,7 @@ public class UserRepository : IUserRepository
 		dbContext = context;
 	}
 
-	public async Task<User> GetSingleUserAsync(Guid id)
+	public async Task<User> GetSingleUserAsync(Guid userId)
 	{
 		throw new NotImplementedException();
 	}

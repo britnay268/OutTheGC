@@ -4,7 +4,7 @@ namespace OutTheGC.Interfaces
 {
 	public interface IUserRepository
 	{
-		Task<User> GetSingleUserAsync(Guid id);
+		Task<User> GetSingleUserAsync(Guid userId);
 
 		Task<User> CheckUserExistenceAsync(string uid);
 

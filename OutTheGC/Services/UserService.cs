@@ -13,9 +13,9 @@ public class UserService : IUserService
 		_userRepository = userRepository;
 	}
 
-    public async Task<User> GetSingleUserAsync(Guid id)
+    public async Task<User> GetSingleUserAsync(Guid userId)
     {
-        return await _userRepository.GetSingleUserAsync(id);
+        return await _userRepository.GetSingleUserAsync(userId);
     }
 
     public async Task<User> CheckUserExistenceAsync(string uid)
