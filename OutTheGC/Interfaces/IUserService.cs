@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using OutTheGC.Models;
 
 namespace OutTheGC.Interfaces;
@@ -7,7 +8,7 @@ public interface IUserService
 {
 	Task<User> GetSingleUserAsync(Guid userId);
 
-    Task<User> CheckUserExistenceAsync(string uid);
+    Task<IResult> CheckUserExistenceAsync(string uid);
 
     Task<User> CreateUserAsync(User newUser);
 

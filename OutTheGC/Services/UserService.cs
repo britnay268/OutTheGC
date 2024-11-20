@@ -18,7 +18,7 @@ public class UserService : IUserService
         return await _userRepository.GetSingleUserAsync(userId);
     }
 
-    public async Task<User> CheckUserExistenceAsync(string uid)
+    public async Task<IResult> CheckUserExistenceAsync(string uid)
     {
         return await _userRepository.CheckUserExistenceAsync(uid);
     }

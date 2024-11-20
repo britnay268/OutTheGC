@@ -17,27 +17,70 @@ public class UserRepository : IUserRepository
 
 	public async Task<User> GetSingleUserAsync(Guid userId)
 	{
-		throw new NotImplementedException();
+		var singleUser = await dbContext.Users.SingleOrDefaultAsync(u => u.Id == userId);
+
+		return singleUser;
 	}
 
-    public async Task<User> CheckUserExistenceAsync(string uid)
+    public async Task<IResult> CheckUserExistenceAsync(string uid)
 	{
-        throw new NotImplementedException();
+		var user = await dbContext.Users.SingleOrDefaultAsync(u => u.Uid == uid);
+
+		if (user == null)
+		{
+			return Results.Ok(false);
+		}
+
+		return Results.Ok(true);
     }
 
     public async Task<User> CreateUserAsync(User newUser)
 	{
-        throw new NotImplementedException();
+		User addUser = new User
+		{
+			FullName = newUser.FullName,
+			Email = newUser.Email,
+			Bio = newUser.Bio,
+			ImageUrl = newUser.ImageUrl,
+			DateJoined = DateTime.Now,
+			Uid = newUser.Uid
+		};
+
+		dbContext.Users.Add(addUser);
+		dbContext.SaveChangesAsync();
+		return addUser;
     }
 
     public async Task<User> UpdateUserAsync(Guid id, User existingUser)
 	{
-        throw new NotImplementedException();
+		var userToUpdate = await dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+
+        if (userToUpdate == null)
+        {
+            return null;
+        }
+
+        userToUpdate.Email = existingUser.Email ?? userToUpdate.Email;
+		userToUpdate.Bio = existingUser.Bio ?? userToUpdate.Bio;
+		userToUpdate.ImageUrl = existingUser.ImageUrl ?? userToUpdate.ImageUrl;
+
+		dbContext.SaveChangesAsync();
+		return userToUpdate;
     }
 
     public async Task<User> DeleteUserAsync(Guid id)
 	{
-        throw new NotImplementedException();
+		var userToDelete = await dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+
+		if (userToDelete == null)
+		{
+			return null;
+		}
+
+		dbContext.Users.Remove(userToDelete);
+		dbContext.SaveChangesAsync();
+
+		return userToDelete;
     }
 }
 
