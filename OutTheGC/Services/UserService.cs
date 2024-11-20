@@ -1,6 +1,5 @@
 ﻿using System;
 using OutTheGC.Interfaces;
-using OutTheGC.Data;
 using OutTheGC.Models;
 
 namespace OutTheGC.Services;
