@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.Json;
 using OutTheGC.Interfaces;
 using OutTheGC.Services;
 using OutTheGC.Repositories;
+using OutTheGC.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,5 +38,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.MapUserRndpoints();
 
 app.Run();
