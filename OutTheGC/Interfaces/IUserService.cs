@@ -15,4 +15,3 @@ public interface IUserService
 
     Task<User> DeleteUserAsync(Guid id);
 }
-
