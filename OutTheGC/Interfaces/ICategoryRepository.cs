@@ -1,11 +1,9 @@
-﻿using System;
-namespace OutTheGC.Interfaces
+﻿using OutTheGC.Models;
+
+namespace OutTheGC.Interfaces;
+
+public interface ICategoryRepository
 {
-	public class ICategoryRepository
-	{
-		public ICategoryRepository()
-		{
-		}
-	}
+	Task<List<Category>> GetCategoriesAsync();
 }
 

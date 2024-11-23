@@ -1,11 +1,8 @@
-﻿using System;
-namespace OutTheGC.Interfaces
-{
-	public class ICategoryService
-	{
-		public ICategoryService()
-		{
-		}
-	}
-}
+﻿using OutTheGC.Models;
 
+namespace OutTheGC.Interfaces;
+
+public interface ICategoryService
+{
+    Task<List<Category>> GetCategoriesAsync();
+}

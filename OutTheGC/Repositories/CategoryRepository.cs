@@ -1,11 +1,21 @@
-﻿using System;
-namespace OutTheGC.Repositories
+﻿using OutTheGC.Models;
+using OutTheGC.Interfaces;
+using OutTheGC.Data;
+
+namespace OutTheGC.Repositories;
+
+public class CategoryRepository : ICategoryRepository
 {
-	public class CategoryRepository
+	private readonly OutTheGCDbContext dbContext;
+
+	public CategoryRepository(OutTheGCDbContext context)
 	{
-		public CategoryRepository()
-		{
-		}
+		dbContext = context;
 	}
+
+    public async Task<List<Category>> GetCategoriesAsync()
+	{
+        throw new NotImplementedException();
+    }
 }
 

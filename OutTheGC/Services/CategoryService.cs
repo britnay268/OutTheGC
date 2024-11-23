@@ -1,11 +1,21 @@
-﻿using System;
-namespace OutTheGC.Services
+﻿using OutTheGC.Interfaces;
+using OutTheGC.Data;
+using OutTheGC.Models;
+
+namespace OutTheGC.Services;
+
+public class CategoryService
 {
-	public class CategoryService
+	private readonly ICategoryRepository _categoryRepository;
+
+	public CategoryService(ICategoryRepository categoryRepository)
 	{
-		public CategoryService()
-		{
-		}
+		_categoryRepository = categoryRepository;
 	}
+
+    public async Task<List<Category>> GetCategoriesAsync()
+    {
+		return await _categoryRepository.GetCategoriesAsync();
+    }
 }
 
