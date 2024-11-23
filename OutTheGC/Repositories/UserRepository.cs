@@ -47,7 +47,7 @@ public class UserRepository : IUserRepository
 		};
 
 		dbContext.Users.Add(addUser);
-		dbContext.SaveChangesAsync();
+		await dbContext.SaveChangesAsync();
 		return addUser;
     }
 
@@ -64,7 +64,7 @@ public class UserRepository : IUserRepository
 		userToUpdate.Bio = existingUser.Bio ?? userToUpdate.Bio;
 		userToUpdate.ImageUrl = existingUser.ImageUrl ?? userToUpdate.ImageUrl;
 
-		dbContext.SaveChangesAsync();
+		await dbContext.SaveChangesAsync();
 		return userToUpdate;
     }
 
@@ -78,7 +78,7 @@ public class UserRepository : IUserRepository
 		}
 
 		dbContext.Users.Remove(userToDelete);
-		dbContext.SaveChangesAsync();
+		await dbContext.SaveChangesAsync();
 
 		return userToDelete;
     }
