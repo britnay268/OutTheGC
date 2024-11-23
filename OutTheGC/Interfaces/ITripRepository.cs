@@ -1,5 +1,4 @@
-﻿using System;
-using OutTheGC.Models;
+﻿using OutTheGC.Models;
 
 namespace OutTheGC.Interfaces;
 
