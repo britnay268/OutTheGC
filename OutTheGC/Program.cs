@@ -24,6 +24,18 @@ builder.Services.Configure<JsonOptions>(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddScoped<ITripService, TripService>();
+builder.Services.AddScoped<ITripRepository, TripRepository>();
+
+builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
