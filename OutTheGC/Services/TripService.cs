@@ -29,9 +29,9 @@ public class TripService : ITripService
         return await _tripRepository.CreateTripAsync(newTrip);
     }
 
-    public async Task<Trip> UpdateTripAsync(Guid tripId, Trip updatedTrip)
+    public async Task<Trip> UpdateTripAsync(Guid tripId, Trip updatedTrip, Guid ownerId)
     {
-        return await _tripRepository.UpdateTripAsync(tripId, updatedTrip);
+        return await _tripRepository.UpdateTripAsync(tripId, updatedTrip, ownerId);
     }
 
     public async Task<Trip> DeleteTripAsync(Guid tripId)
@@ -39,7 +39,7 @@ public class TripService : ITripService
         return await _tripRepository.DeleteTripAsync(tripId);
     }
 
-    public async Task<Trip> DeleteUserFromTripAsync(Guid tripId, Guid userId)
+    public async Task<UserTrip> DeleteUserFromTripAsync(Guid tripId, Guid userId)
     {
         return await _tripRepository.DeleteUserFromTripAsync(tripId, userId);
     }
