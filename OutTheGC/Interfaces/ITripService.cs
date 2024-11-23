@@ -10,11 +10,11 @@ namespace OutTheGC.Interfaces
 
         Task<Trip> CreateTripAsync(Trip newTrip);
 
-        Task<Trip> UpdateTripAsync(Guid tripId, Trip updatedTrip);
+        Task<Trip> UpdateTripAsync(Guid tripId, Trip updatedTrip, Guid ownerId);
 
         Task<Trip> DeleteTripAsync(Guid tripId);
 
-        Task<Trip> DeleteUserFromTripAsync(Guid tripId, Guid userId);
+        Task<UserTrip> DeleteUserFromTripAsync(Guid tripId, Guid userId);
     }
 }
 

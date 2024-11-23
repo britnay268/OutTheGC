@@ -1,13 +1,11 @@
-﻿using System;
-using OutTheGC.Models;
+﻿using OutTheGC.Models;
 using OutTheGC.Interfaces;
-using OutTheGC.Models;
 
 namespace OutTheGC.Endpoints;
 
 public static class UserEndpoint
 {
-	public static void MapUserRndpoints(this IEndpointRouteBuilder routes)
+	public static void MapUserEndpoints(this IEndpointRouteBuilder routes)
 	{
         var group = routes.MapGroup("").WithTags(nameof(User));
 

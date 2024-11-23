@@ -51,6 +51,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-app.MapUserRndpoints();
+app.MapUserEndpoints();
+app.MapTripEndpoints();
 
 app.Run();
