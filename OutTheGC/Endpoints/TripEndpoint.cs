@@ -46,7 +46,7 @@ public static class TripEndpoint
                     p.Email,
                     p.ImageUrl,
                     p.Uid
-                }),
+                })
             }));
         })
         .WithOpenApi()
@@ -93,6 +93,25 @@ public static class TripEndpoint
                     p.ImageUrl,
                     p.Uid
                 }),
+                Activities = trip.Activities.Select(a => new
+                {
+                    a.Id,
+                    a.Title,
+                    a.Notes,
+                    a.Location,
+                    a.Date,
+                    a.Duration,
+                    a.Cost,
+                    a.CategoryId,
+                    a.Category,
+                    a.WebsiteUrl,
+                    User = new
+                    {
+                        a.User.Id,
+                        a.User.FullName,
+                        a.User.ImageUrl
+                    },
+                })
             });
         })
         .WithOpenApi()
@@ -140,7 +159,10 @@ public static class TripEndpoint
 
 
             return Results.Ok(new { message = "Trip information has been updated." });
-        });
+        })
+        .WithOpenApi()
+        .Produces<User>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
 
         group.MapDelete("/trip/{tripId}", async (ITripService tripService, Guid tripId) =>
         {

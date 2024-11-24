@@ -14,11 +14,6 @@ public class ActivityService : IActivityService
 		_activityRepository = activityRepository;
 	}
 
-    public async Task<List<Activity>> GetActivitiesAsync(Guid tripId)
-    {
-        return await _activityRepository.GetActivitiesAsync(tripId);
-    }
-
     public async Task<Activity> GetSingleActivityAsync(Guid activityId)
     {
         return await _activityRepository.GetSingleActivityAsync(activityId);

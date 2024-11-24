@@ -1,6 +1,7 @@
 ﻿using OutTheGC.Interfaces;
 using OutTheGC.Models;
 using OutTheGC.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace OutTheGC.Repositories;
 
@@ -12,11 +13,6 @@ public class ActivityRepository : IActivityRepository
 	{
 		dbContext = context;
 	}
-
-    public async Task<List<Activity>> GetActivitiesAsync(Guid tripId)
-    {
-        throw new NotImplementedException();
-    }
 
     public async Task<Activity> GetSingleActivityAsync(Guid activityId)
     {

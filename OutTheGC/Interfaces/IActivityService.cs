@@ -4,8 +4,6 @@ namespace OutTheGC.Interfaces;
 
 public interface IActivityService
 {
-    Task<List<Activity>> GetActivitiesAsync(Guid tripId);
-
     Task<Activity> GetSingleActivityAsync(Guid activityId);
 
     Task<Activity> CreateActivityAsync(Activity newActivity);
