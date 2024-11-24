@@ -78,7 +78,7 @@ public class TripRepository : ITripRepository
 
         if (triptoUpdate.UserId != ownerId)
         {
-            return new Trip { UserId = Guid.Empty };
+            throw new Exception("You are not the owner of this Trip!");
         }
 
         triptoUpdate.Title = updatedTrip.Title ?? triptoUpdate.Title;

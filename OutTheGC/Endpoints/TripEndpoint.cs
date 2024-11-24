@@ -122,7 +122,6 @@ public static class TripEndpoint
         {
             var addTrip = await tripService.CreateTripAsync(newTrip);
 
-
             if (addTrip == null)
             {
                 return Results.NotFound(new
@@ -148,15 +147,6 @@ public static class TripEndpoint
                     error = "The trip you wish to update does not exist"
                 });
             }
-
-            if (triptoUpdate.UserId == Guid.Empty)
-            {
-                return Results.BadRequest(new
-                {
-                    error = "You are not an owner of this trip"
-                });
-            }
-
 
             return Results.Ok(new { message = "Trip information has been updated." });
         })

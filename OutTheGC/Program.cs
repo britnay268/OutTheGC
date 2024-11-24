@@ -53,5 +53,6 @@ app.UseHttpsRedirection();
 
 app.MapUserEndpoints();
 app.MapTripEndpoints();
+app.MapActivityEndpoints();
 
 app.Run();
