@@ -39,7 +39,7 @@ public static class UserEndpoint
         .Produces<User>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapGet("/user/{userId}/exists", async (IUserService userService, string uid) =>
+        group.MapGet("/user/exists", async (IUserService userService, string uid) =>
         {
             return await userService.CheckUserExistenceAsync(uid);
         })
