@@ -13,11 +13,6 @@ public class CommentRepository : ICommentRepository
 		dbContext = context;
 	}
 
-    public async Task<List<Comment>> GetCommentsAsync(Guid activityId)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<Comment> GetSingleCommentAsync(Guid commentId)
     {
         throw new NotImplementedException();
