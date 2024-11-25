@@ -55,5 +55,6 @@ app.MapUserEndpoints();
 app.MapTripEndpoints();
 app.MapActivityEndpoints();
 app.MapCategoryEndpoints();
+app.MapCommentEndpoints();
 
 app.Run();
