@@ -1,6 +1,7 @@
 ﻿using OutTheGC.Models;
 using OutTheGC.Interfaces;
 using OutTheGC.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace OutTheGC.Repositories;
 
@@ -15,7 +16,7 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<List<Category>> GetCategoriesAsync()
 	{
-        throw new NotImplementedException();
+		return await dbContext.Categories.ToListAsync();
     }
 }
 
