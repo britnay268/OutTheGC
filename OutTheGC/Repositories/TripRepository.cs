@@ -33,9 +33,9 @@ public class TripRepository : ITripRepository
     public async Task<Trip?> GetTripsByIdAsync(Guid tripId)
     {
         return await dbContext.Trips
-            .Include(t => t.Owner)
             .Include(t => t.Activities)
             .Include(t => t.Participants)
+            .Include(t => t.Owner)
             .SingleOrDefaultAsync(t => t.Id == tripId);
     }
 
@@ -78,7 +78,7 @@ public class TripRepository : ITripRepository
 
         if (triptoUpdate.UserId != ownerId)
         {
-            return new Trip { UserId = Guid.Empty };
+            throw new Exception("You are not the owner of this Trip!");
         }
 
         triptoUpdate.Title = updatedTrip.Title ?? triptoUpdate.Title;
