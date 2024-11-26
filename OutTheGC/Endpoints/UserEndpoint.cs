@@ -39,7 +39,7 @@ public static class UserEndpoint
         .Produces<User>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapGet("/user/{userId}/exists", async (IUserService userService, string uid) =>
+        group.MapGet("/user/exists", async (IUserService userService, string uid) =>
         {
             return await userService.CheckUserExistenceAsync(uid);
         })
@@ -67,9 +67,9 @@ public static class UserEndpoint
         .Produces<User>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest);
 
-        group.MapPut("/user/{userId}", async (IUserService userService, Guid id, User existingUser) =>
+        group.MapPut("/user/{userId}", async (IUserService userService, Guid userId, User existingUser) =>
         {
-            var userToUpdate = await userService.UpdateUserAsync(id, existingUser);
+            var userToUpdate = await userService.UpdateUserAsync(userId, existingUser);
 
             if (userToUpdate == null)
             {
@@ -82,9 +82,9 @@ public static class UserEndpoint
         .Produces<User>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapDelete("/user/{userId}", async (IUserService userService, Guid id) =>
+        group.MapDelete("/user/{userId}", async (IUserService userService, Guid userId) =>
         {
-            var userToDelete = await userService.DeleteUserAsync(id);
+            var userToDelete = await userService.DeleteUserAsync(userId);
 
             if (userToDelete == null)
             {

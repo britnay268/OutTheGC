@@ -21,7 +21,20 @@ public static class CommentEndpoint
                 });
             }
 
-            return Results.Ok(singleComment);
+            return Results.Ok(new
+            {
+                singleComment.Id,
+                singleComment.UserId,
+                User = new
+                {
+                    singleComment.User.Id,
+                    singleComment.User.FullName
+                },
+                singleComment.ActivityId,
+                singleComment.Content,
+                singleComment.CreatedAt,
+                singleComment.UpdatedAt
+            });
         })
         .WithOpenApi()
         .Produces<Trip>(StatusCodes.Status200OK)
