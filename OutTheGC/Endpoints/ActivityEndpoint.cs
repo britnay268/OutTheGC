@@ -109,7 +109,7 @@ public static class ActivityEndpoint
             {
                 return Results.NotFound(new
                 {
-                    error = $"{searchInput} is not found!"
+                    error = $"No search results found!"
                 });
             }
 

@@ -42,6 +42,7 @@ public static class TripEndpoint
                 t.UpdatedAt,
                 Participants = t.Participants.Select(p => new
                 {
+                    p.Id,
                     p.FullName,
                     p.Email,
                     p.ImageUrl,
@@ -88,6 +89,7 @@ public static class TripEndpoint
                 trip.UpdatedAt,
                 Participants = trip.Participants.Select(p => new
                 {
+                    p.Id,
                     p.FullName,
                     p.Email,
                     p.ImageUrl,
