@@ -109,7 +109,7 @@ public class ActivityRepository : IActivityRepository
 
         var seachActivity = await dbContext.Activities
             .Where(a => a.TripId == tripId)
-            .Where(a => a.Title.ToLower().Contains(searchInput.ToLower()) || a.Notes.ToLower().Contains(searchInput) || a.Category.Name.ToLower().Contains(searchInput))
+            .Where(a => a.Title.ToLower().Contains(searchInput.ToLower()) || a.Notes.ToLower().Contains(searchInput.ToLower()) || a.Category.Name.ToLower().Contains(searchInput.ToLower()))
             .Include(a => a.Category)
             .Include(a => a.User)
             .Include(a => a.Comments)
