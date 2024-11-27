@@ -2,7 +2,7 @@
 
 <p align="center">This is the server-side for the fullstack application called **Out The GC** - a trip planner app that was designed to streamline travel planning for individuals and groups. </P>
 
-<h3>Ideal User</h3>
+<h3 align="center">Ideal User</h3>
 The ideal user is someone who values organized and collaborative travel planning. This includes groups of friends or families coordinating vacations, coworkers planning team retreats, or even solo travelers who want to structure their itineraries efficiently. Users are likely tech-savvy individuals who appreciate streamlined tools to consolidate ideas, eliminate planning chaos, and ensure everyone's input is considered for a well-rounded travel experience.
 
 ## Table of Conetents
@@ -14,7 +14,7 @@ The ideal user is someone who values organized and collaborative travel planning
 - <a href="#colaborators">Collaborators</a>
 
 <h2 id="erd">Entity Relationship Diagram</h2>
-Here is the link to the ERD: [ERD](https://dbdiagram.io/d/Full-Stack-Capstone-6583a0b156d8064ca06bd425)
+Here is the link to the ERD: <a href="https://dbdiagram.io/d/Full-Stack-Capstone-6583a0b156d8064ca06bd425"">ERD</a>
 
 <h2 id="tech-stack">Tech Stack</h2>
 
