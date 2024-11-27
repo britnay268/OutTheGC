@@ -1,4 +1,5 @@
 ﻿using Moq;
+using OutTheGC.Models;
 using OutTheGC.Services;
 using OutTheGC.Interfaces;
 
@@ -36,30 +37,6 @@ public class ActivityServiceTests
 
     [Fact]
     public async Task DeleteActvity_Success()
-    {
-
-    }
-
-    [Fact]
-    public async Task GetActvityDetails_ActivityNotFound()
-    {
-
-    }
-
-    [Fact]
-    public async Task CreateActvity_MissingFeilds()
-    {
-
-    }
-
-    [Fact]
-    public async Task UpdateActvity_InvalidActivityId()
-    {
-
-    }
-
-    [Fact]
-    public async Task DeleteActvity_InvalidActivityId()
     {
 
     }

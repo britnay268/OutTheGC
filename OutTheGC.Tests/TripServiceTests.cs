@@ -38,28 +38,4 @@ public class TripServiceTests
     {
 
     }
-
-    [Fact]
-    public async Task GetTripDetails_TripNotFound()
-    {
-
-    }
-
-    [Fact]
-    public async Task CreateTrip_MissingFeilds()
-    {
-
-    }
-
-    [Fact]
-    public async Task UpdateTrip_InvalidOwnerId()
-    {
-
-    }
-
-    [Fact]
-    public async Task DeleteTrip_InvalidTripId()
-    {
-
-    }
 }
