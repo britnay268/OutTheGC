@@ -78,46 +78,43 @@ Launch the project. Swagger should automatically launch and provide you with the
 
 <h2 id="api-endpoints">API Endpoints</h2>
 
-| Activity             |
-|----------------------|
-| **GET /activity/{activityId}**
-| **GET /activity/{tripId}/search**
-| **POST /activity**
-| **PUT /activity/{activityId}**
-| **DELETE /activity/{activityId}**
+| Endpoints                  |
+|------------------------------------------|
+| **Activity**                              |
+| GET /activity/{activityId}               |
+| GET /activity/{tripId}/search            |
+| POST /activity                           |
+| PUT /activity/{activityId}               |
+| DELETE /activity/{activityId}            |
+|                                          |
+| **Category**                              |
+| GET /categories                          |
+|                                          |
+| **Comment**                               |
+| GET /comment/{commentId}                 |
+| POST /comment                            |
+| PUT /comment/{commentId}                 |
+| DELETE /comment/{commentId}              |
+|                                          |
+| **Trip**                                  |
+| GET /trips                               |
+| GET /trip/{tripId}                       |
+| POST /trip                               |
+| PUT /trip/{tripId}                       |
+| DELETE /trip/{tripId}                    |
+| DELETE /trip/{tripId}/user/{userId}      |
+|                                          |
+| **User**                                  |
+| GET /user/{userId}                       |
+| GET /user/exists                         |
+| POST /user                               |
+| PUT /user/{userId}                       |
+| DELETE /user/{userId}                    |
 
-|Category              |
-|----------------------|
-| **GET /categories**
-
-|Comment               |
-|----------------------|
-| **GET /comment/{commentId}**
-| **POST /comment**
-| **PUT /comment/{commentId}**
-| **DELETE /comment/{commentId}**
-
-
-|Trip                  |
-|----------------------|
-| **GET /trips**
-| **GET /trip/{tripId}**
-| **POST /trip**
-| **PUT /trip/{tripId}**
-| **DELETE /trip/{tripId}**
-| **DELETE /trip/{tripId}/user/{userId}**
-
-|User                  |
-|----------------------|
-| **GET /user/{userId}**
-| **GET /user/exists**
-| **POST /user**
-| **PUT /user/{userId}**
-| **DELETE /user/{userId}**
 
 <h2 id="postman-documentation">Postman Documentation</h2>
 
-Checkout the [Out The GC](https://documenter.getpostman.com/view/31929847/2sAYBViCP4) to learn more about the API endpoints mentioned above!
+Checkout the [Out The GC](https://documenter.getpostman.com/view/31929847/2sAYBViCP4) Postman Collction to learn more about the API endpoints mentioned above!
 
 <h2 id="colaborators">Collaborators</h2>
 
