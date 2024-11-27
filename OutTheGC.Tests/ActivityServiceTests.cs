@@ -79,17 +79,11 @@ public class ActivityServiceTests
             Location = "New York City"
         };
 
-        Activity updatedActivity = new Activity
-        {
-            Id = activityId,
-            Location = "New York City"
-        };
-
-        _mockActivityRepository.Setup(repo => repo.UpdateActivityAsync(activityId, expectedUpdatedActivity)).ReturnsAsync(updatedActivity);
+        _mockActivityRepository.Setup(repo => repo.UpdateActivityAsync(activityId, expectedUpdatedActivity)).ReturnsAsync(expectedUpdatedActivity);
 
         var actualUpdatedActivity = await _activityService.UpdateActivityAsync(activityId, expectedUpdatedActivity);
 
-        Assert.Equal(updatedActivity, actualUpdatedActivity);
+        Assert.Equal(expectedUpdatedActivity, actualUpdatedActivity);
     }
 
     [Fact]

@@ -71,17 +71,11 @@ public class UserServiceTests
             Bio = "This is Sally's accounttt!!"
         };
 
-        User updatedUser = new User
-        {
-            Id = userId,
-            Bio = "This is Sally's accounttt!!"
-        };
-
-        _mockUserRepository.Setup(repo => repo.UpdateUserAsync(userId, userToUpdate)).ReturnsAsync(updatedUser);
+        _mockUserRepository.Setup(repo => repo.UpdateUserAsync(userId, userToUpdate)).ReturnsAsync(userToUpdate);
 
         var actualUserToUpdate = await _userService.UpdateUserAsync(userId, userToUpdate);
 
-        Assert.Equal(updatedUser, actualUserToUpdate);
+        Assert.Equal(userToUpdate, actualUserToUpdate);
     }
 
     [Fact]
