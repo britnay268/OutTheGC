@@ -5,7 +5,7 @@
 <h3 align="center">Ideal User</h3>
 The ideal user is someone who values organized and collaborative travel planning. This includes groups of friends or families coordinating vacations, coworkers planning team retreats, or even solo travelers who want to structure their itineraries efficiently. Users are likely tech-savvy individuals who appreciate streamlined tools to consolidate ideas, eliminate planning chaos, and ensure everyone's input is considered for a well-rounded travel experience.
 
-## Table of Conetents
+## Table of Contents
 - <a href="#tech-stack">Tech Stack</a>
 - <a href="#erd">Entity Relationship Diagram</a>
 - <a href="#getting-started">Getting Started</a>
