@@ -1,6 +1,6 @@
 ﻿<h1 align="center" style="font-weight: bold;">Out The GC</h1>
 
-<p align="center">This is the server-side for the fullstack application called **Out The GC** - a trip planner app that was designed to streamline travel planning for individuals and groups. </P>
+<p align="center">This is the server-side for the fullstack application called <b>Out The GC</b> - a trip planner app that was designed to streamline travel planning for individuals and groups. </P>
 
 <h3 align="center">Ideal User</h3>
 The ideal user is someone who values organized and collaborative travel planning. This includes groups of friends or families coordinating vacations, coworkers planning team retreats, or even solo travelers who want to structure their itineraries efficiently. Users are likely tech-savvy individuals who appreciate streamlined tools to consolidate ideas, eliminate planning chaos, and ensure everyone's input is considered for a well-rounded travel experience.
