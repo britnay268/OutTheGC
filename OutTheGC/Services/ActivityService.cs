@@ -24,14 +24,14 @@ public class ActivityService : IActivityService
         return await _activityRepository.CreateActivityAsync(newActivity);
     }
 
-    public async Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity)
+    public async Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity, Guid userId)
     {
-        return await _activityRepository.UpdateActivityAsync(activityId, updatedActivity);
+        return await _activityRepository.UpdateActivityAsync(activityId, updatedActivity, userId);
     }
 
-    public async Task<Activity> DeleteActivityAsync(Guid activityId)
+    public async Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId)
     {
-        return await _activityRepository.DeleteActivityAsync(activityId);
+        return await _activityRepository.DeleteActivityAsync(activityId, userId);
     }
 
     public async Task<List<Activity>> SearchActivityAsync(Guid tripId, string searchInput)

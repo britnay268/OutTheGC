@@ -8,8 +8,8 @@ public interface ICommentService
 
     Task<Comment> CreateCommentAsync(Comment newComment);
 
-    Task<Comment> UpdateCommentAsync(Guid commentId, Comment updatedComment);
+    Task<Comment> UpdateCommentAsync(Guid commentId, Comment updatedComment, Guid userId);
 
-    Task<Comment> DeleteCommentAsync(Guid commentId);
+    Task<Comment> DeleteCommentAsync(Guid commentId, Guid userId);
 }
 

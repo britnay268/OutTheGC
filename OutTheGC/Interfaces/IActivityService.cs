@@ -8,9 +8,9 @@ public interface IActivityService
 
     Task<Activity> CreateActivityAsync(Activity newActivity);
 
-    Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity);
+    Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity, Guid userId);
 
-    Task<Activity> DeleteActivityAsync(Guid activityId);
+    Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId);
 
     Task<List<Activity>> SearchActivityAsync(Guid tripId, string searchInput);
 }

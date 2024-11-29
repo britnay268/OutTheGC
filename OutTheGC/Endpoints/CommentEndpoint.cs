@@ -50,9 +50,9 @@ public static class CommentEndpoint
         .Produces<Trip>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapPut("/comment/{commentId}", async (ICommentService commentService, Guid commentId, Comment updatedComment) =>
+        group.MapPut("/comment/{commentId}", async (ICommentService commentService, Guid commentId, Comment updatedComment, Guid userId) =>
         {
-            var commentToUpdate = await commentService.UpdateCommentAsync(commentId, updatedComment);
+            var commentToUpdate = await commentService.UpdateCommentAsync(commentId, updatedComment, userId);
 
             if (commentToUpdate == null)
             {
@@ -68,9 +68,9 @@ public static class CommentEndpoint
         .Produces<User>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapDelete("/comment/{commentId}", async (ICommentService commentService, Guid commentId) =>
+        group.MapDelete("/comment/{commentId}", async (ICommentService commentService, Guid commentId, Guid userId) =>
         {
-            var commentToDelete = await commentService.DeleteCommentAsync(commentId);
+            var commentToDelete = await commentService.DeleteCommentAsync(commentId, userId);
 
             if (commentToDelete == null)
             {

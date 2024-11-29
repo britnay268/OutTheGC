@@ -48,13 +48,18 @@ public class CommentRepository : ICommentRepository
         return commentToAdd;
     }
 
-    public async Task<Comment> UpdateCommentAsync(Guid commentId, Comment updatedComment)
+    public async Task<Comment> UpdateCommentAsync(Guid commentId, Comment updatedComment, Guid userId)
     {
         var commentToUpdate = await dbContext.Comments.SingleOrDefaultAsync(c => c.Id == commentId);
 
         if (commentToUpdate == null)
         {
             return null;
+        }
+
+        if (commentToUpdate.UserId != userId)
+        {
+            throw new Exception("403 Forbidden: User is not authorized to delete this activity");
         }
 
         commentToUpdate.Content = updatedComment.Content ?? commentToUpdate.Content;
@@ -65,7 +70,7 @@ public class CommentRepository : ICommentRepository
         return commentToUpdate;
     }
 
-    public async Task<Comment> DeleteCommentAsync(Guid commentId)
+    public async Task<Comment> DeleteCommentAsync(Guid commentId, Guid userId)
     {
         var commentToDelete = await dbContext.Comments.SingleOrDefaultAsync(c => c.Id == commentId);
 
@@ -74,6 +79,10 @@ public class CommentRepository : ICommentRepository
             return null;
         }
 
+        if (commentToDelete.UserId != userId)
+        {
+            throw new Exception("403 Forbidden: User is not authorized to delete this activity");
+        }
         dbContext.Comments.Remove(commentToDelete);
         await dbContext.SaveChangesAsync();
 

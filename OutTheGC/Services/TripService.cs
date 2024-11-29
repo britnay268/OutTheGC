@@ -34,14 +34,19 @@ public class TripService : ITripService
         return await _tripRepository.UpdateTripAsync(tripId, updatedTrip, ownerId);
     }
 
-    public async Task<Trip> DeleteTripAsync(Guid tripId)
+    public async Task<Trip> DeleteTripAsync(Guid tripId, Guid ownerId)
     {
-        return await _tripRepository.DeleteTripAsync(tripId);
+        return await _tripRepository.DeleteTripAsync(tripId, ownerId);
     }
 
-    public async Task<UserTrip> DeleteUserFromTripAsync(Guid tripId, Guid userId)
+    public async Task<UserTrip> DeleteUserFromTripAsync(Guid tripId, Guid userId, Guid ownerId)
     {
-        return await _tripRepository.DeleteUserFromTripAsync(tripId, userId);
+        return await _tripRepository.DeleteUserFromTripAsync(tripId, userId, ownerId);
+    }
+
+    public async Task<UserTrip> AddUserToTripAsync(Guid tripId, Guid userId, Guid ownerId)
+    {
+        return await _tripRepository.AddUserToTripAsync(tripId, userId, ownerId);
     }
 }
 

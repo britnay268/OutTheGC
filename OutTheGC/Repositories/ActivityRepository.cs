@@ -2,6 +2,7 @@
 using OutTheGC.Models;
 using OutTheGC.Data;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OutTheGC.Repositories;
 
@@ -62,13 +63,18 @@ public class ActivityRepository : IActivityRepository
         return activityToAdd;
     }
 
-    public async Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity)
+    public async Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity, Guid userId)
     {
         var activityToUpdate = await dbContext.Activities.SingleOrDefaultAsync(a => a.Id == activityId);
 
         if (activityToUpdate == null)
         {
             return null;
+        }
+
+        if (activityToUpdate.UserId != userId)
+        {
+            throw new Exception("403 Forbidden: User is not authorized to update this activity");
         }
 
         activityToUpdate.Title = updatedActivity.Title ?? activityToUpdate.Title;
@@ -86,13 +92,21 @@ public class ActivityRepository : IActivityRepository
         return updatedActivity;
     }
 
-    public async Task<Activity> DeleteActivityAsync(Guid activityId)
+    public async Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId)
     {
-        var activityToDelete= await dbContext.Activities.SingleOrDefaultAsync(a => a.Id == activityId);
+        var activityToDelete = await dbContext.Activities.SingleOrDefaultAsync(a => a.Id == activityId);
 
         if (activityToDelete == null)
         {
             return null;
+        }
+
+        var tripOwnerId = await dbContext.Trips.Where(t => t.Id == activityToDelete.TripId).Select(t => t.UserId).SingleOrDefaultAsync();
+
+        // If the user satisfy one of the conditions then it deletes the activity. If it does not satisfy any of the consitions, it throws the exception                             \
+        if (activityToDelete.UserId != userId && tripOwnerId != userId)
+        {
+            throw new Exception("403 Forbidden: User is not authorized to delete this activity");
         }
 
         dbContext.Activities.Remove(activityToDelete);

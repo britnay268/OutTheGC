@@ -41,6 +41,7 @@ public static class ActivityEndpoint
                 singleActivity.UpdatedAt,
                 Comments = singleActivity.Comments.Select(sa => new
                 {
+                    sa.Id,
                     User = new
                     {
                         sa.User.FullName
@@ -65,9 +66,9 @@ public static class ActivityEndpoint
         .Produces<Trip>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapPut("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Activity updatedActivity) =>
+        group.MapPut("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Activity updatedActivity, Guid userId) =>
         {
-            var activityToUpdate = await activityService.UpdateActivityAsync(activityId, updatedActivity);
+            var activityToUpdate = await activityService.UpdateActivityAsync(activityId, updatedActivity, userId);
 
             if (activityToUpdate == null)
             {
@@ -83,9 +84,9 @@ public static class ActivityEndpoint
         .Produces<User>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapDelete("/activity/{activityId}", async (IActivityService activityService, Guid activityId) =>
+        group.MapDelete("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Guid userId) =>
         {
-            var activityToDelete = await activityService.DeleteActivityAsync(activityId);
+            var activityToDelete = await activityService.DeleteActivityAsync(activityId, userId);
 
             if (activityToDelete == null)
             {
