@@ -156,9 +156,9 @@ public static class TripEndpoint
         .Produces<User>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapDelete("/trip/{tripId}", async (ITripService tripService, Guid tripId) =>
+        group.MapDelete("/trip/{tripId}", async (ITripService tripService, Guid tripId, Guid ownerId) =>
         {
-            var tripToDelete = await tripService.DeleteTripAsync(tripId);
+            var tripToDelete = await tripService.DeleteTripAsync(tripId, ownerId);
 
             if (tripToDelete == null)
             {
@@ -168,28 +168,37 @@ public static class TripEndpoint
                 });
             }
 
-            return Results.Ok(new { message = "Trip and all it has activities and comments have been deleted!" });
+            return Results.Ok(new { message = "Trip and all its activities and comments have been deleted!" });
 
         })
         .WithOpenApi()
         .Produces<Trip>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapDelete("/trip/{tripId}/user/{userId}", async (ITripService tripService, Guid tripId, Guid userId) =>
+        group.MapDelete("/trip/{tripId}/user/{userId}", async (ITripService tripService, Guid tripId, Guid userId, Guid ownerId) =>
         {
-            var userToDelete = await tripService.DeleteUserFromTripAsync(tripId, userId);
-
-            
+            var userToDelete = await tripService.DeleteUserFromTripAsync(tripId, userId, ownerId);
 
             if (userToDelete == null)
             {
                 return Results.NotFound(new
                 {
-                    error = "There is no trip with this user."
+                    error = "The trip or the user does not exist."
                 });
             }
 
             return Results.Ok(new { message = "User has been deleted from trip!" });
+
+        })
+        .WithOpenApi()
+        .Produces<Trip>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
+
+        group.MapPost("/trip/{tripId}/user", async (ITripService tripService, Guid tripId, Guid userId, Guid ownerId) =>
+        {
+            var addParticipantToTrip = await tripService.AddUserToTripAsync(tripId, userId, ownerId);
+
+            return Results.Ok(new { message = "User has been added to trip!" });
 
         })
         .WithOpenApi()

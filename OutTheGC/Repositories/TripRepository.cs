@@ -78,7 +78,7 @@ public class TripRepository : ITripRepository
 
         if (triptoUpdate.UserId != ownerId)
         {
-            throw new Exception("You are not the owner of this Trip!");
+            throw new UnauthorizedAccessException("You are not the owner of this Trip!");
         }
 
         triptoUpdate.Title = updatedTrip.Title ?? triptoUpdate.Title;
@@ -94,7 +94,7 @@ public class TripRepository : ITripRepository
 
     }
 
-    public async Task<Trip> DeleteTripAsync(Guid tripId)
+    public async Task<Trip> DeleteTripAsync(Guid tripId, Guid ownerId)
     {
         var tripToDelete = await dbContext.Trips.SingleOrDefaultAsync(t => t.Id == tripId);
 
@@ -103,13 +103,18 @@ public class TripRepository : ITripRepository
             return null;
         }
 
+        if (tripToDelete.UserId != ownerId)
+        {
+            throw new UnauthorizedAccessException("You are not the owner of this Trip!");
+        }
+
         dbContext.Trips.Remove(tripToDelete);
         await dbContext.SaveChangesAsync();
         return tripToDelete;
 
     }
 
-    public async Task<UserTrip> DeleteUserFromTripAsync(Guid tripId, Guid userId)
+    public async Task<UserTrip> DeleteUserFromTripAsync(Guid tripId, Guid userId, Guid ownerId)
     {
         var userOnTrip = await dbContext.UserTrips.SingleOrDefaultAsync(ut => ut.TripId == tripId && ut.UserId == userId);
 
@@ -118,24 +123,46 @@ public class TripRepository : ITripRepository
             return null;
         }
 
-        var tripExists = await dbContext.Trips.AnyAsync(t => t.Id == tripId);
+        var trip = await dbContext.Trips.SingleOrDefaultAsync(t => t.Id == tripId);
 
-        if (!tripExists)
+
+        if (trip.UserId != ownerId)
         {
-            return new UserTrip { TripId = Guid.Empty };
-        }
-
-        var userExists = await dbContext.Users.AnyAsync(t => t.Id == userId);
-
-        if (!userExists)
-        {
-            return new UserTrip { UserId = Guid.Empty };
+            throw new UnauthorizedAccessException("You are not the owner of this Trip!");
         }
 
         dbContext.UserTrips.Remove(userOnTrip);
         await dbContext.SaveChangesAsync();
 
         return userOnTrip;
+    }
+
+    public async Task<UserTrip> AddUserToTripAsync(Guid tripId, Guid userId, Guid ownerId)
+    {
+        var userExists = dbContext.Users.Any(u => u.Id == userId);
+
+        if (!userExists)
+        {
+            throw new Exception("The user to be added does not exist!");
+        }
+
+        var trip = await dbContext.Trips.SingleOrDefaultAsync(t => t.Id == tripId);
+
+        if (trip.UserId != ownerId)
+        {
+            throw new UnauthorizedAccessException("You are not the owner of this Trip!");
+        }
+
+        UserTrip newTripUser = new UserTrip
+        {
+            UserId = userId,
+            TripId = tripId,
+            CreatedAt = DateTime.Now
+        };
+
+        dbContext.UserTrips.Add(newTripUser);
+        await dbContext.SaveChangesAsync();
+        return newTripUser;
     }
 }
 
