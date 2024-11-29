@@ -65,9 +65,9 @@ public static class ActivityEndpoint
         .Produces<Trip>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapPut("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Activity updatedActivity) =>
+        group.MapPut("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Activity updatedActivity, Guid userId) =>
         {
-            var activityToUpdate = await activityService.UpdateActivityAsync(activityId, updatedActivity);
+            var activityToUpdate = await activityService.UpdateActivityAsync(activityId, updatedActivity, userId);
 
             if (activityToUpdate == null)
             {

@@ -24,9 +24,9 @@ public class ActivityService : IActivityService
         return await _activityRepository.CreateActivityAsync(newActivity);
     }
 
-    public async Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity)
+    public async Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity, Guid userId)
     {
-        return await _activityRepository.UpdateActivityAsync(activityId, updatedActivity);
+        return await _activityRepository.UpdateActivityAsync(activityId, updatedActivity, userId);
     }
 
     public async Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId)
