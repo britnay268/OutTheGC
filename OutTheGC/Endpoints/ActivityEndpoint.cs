@@ -41,6 +41,7 @@ public static class ActivityEndpoint
                 singleActivity.UpdatedAt,
                 Comments = singleActivity.Comments.Select(sa => new
                 {
+                    sa.Id,
                     User = new
                     {
                         sa.User.FullName
