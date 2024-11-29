@@ -10,7 +10,7 @@ public interface IActivityRepository
 
 	Task<Activity> UpdateActivityAsync(Guid activityId, Activity updatedActivity);
 
-	Task<Activity> DeleteActivityAsync(Guid activityId);
+	Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId);
 
 	Task<List<Activity>> SearchActivityAsync(Guid tripId, string searchInput);
 }

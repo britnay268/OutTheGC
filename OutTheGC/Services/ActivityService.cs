@@ -29,9 +29,9 @@ public class ActivityService : IActivityService
         return await _activityRepository.UpdateActivityAsync(activityId, updatedActivity);
     }
 
-    public async Task<Activity> DeleteActivityAsync(Guid activityId)
+    public async Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId)
     {
-        return await _activityRepository.DeleteActivityAsync(activityId);
+        return await _activityRepository.DeleteActivityAsync(activityId, userId);
     }
 
     public async Task<List<Activity>> SearchActivityAsync(Guid tripId, string searchInput)

@@ -83,9 +83,9 @@ public static class ActivityEndpoint
         .Produces<User>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapDelete("/activity/{activityId}", async (IActivityService activityService, Guid activityId) =>
+        group.MapDelete("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Guid userId) =>
         {
-            var activityToDelete = await activityService.DeleteActivityAsync(activityId);
+            var activityToDelete = await activityService.DeleteActivityAsync(activityId, userId);
 
             if (activityToDelete == null)
             {
