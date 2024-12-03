@@ -147,6 +147,37 @@ public static class ActivityEndpoint
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status204NoContent);
 
+        group.MapGet("/activity/filter", async (IActivityService activityService, Guid tripId) =>
+        {
+            var results = await activityService.FilterActivitiesByHighestVotes(tripId);
+
+            return Results.Ok(results.Select(r => new
+            {
+                r.Id,
+                r.TripId,
+                r.Title,
+                r.Notes,
+                r.Location,
+                r.Date,
+                r.Duration,
+                r.Cost,
+                r.CategoryId,
+                r.Category,
+                r.WebsiteUrl,
+                User = new
+                {
+                    r.User.Id,
+                    r.User.FullName,
+                    r.User.ImageUrl
+                },
+                VoteCount = r.Votes.Count()
+            }));
+
+            //return results;
+        })
+        .WithOpenApi()
+        .Produces<List<Activity>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }
 

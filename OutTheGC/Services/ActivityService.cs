@@ -43,5 +43,10 @@ public class ActivityService : IActivityService
     {
         return await _activityRepository.VoteOnActivity(userId, activityId);
     }
+
+    public async Task<List<Activity>> FilterActivitiesByHighestVotes(Guid tripId)
+    {
+        return await _activityRepository.FilterActivitiesByHighestVotes(tripId);
+    }
 }
 

@@ -169,5 +169,18 @@ public class ActivityRepository : IActivityRepository
         await dbContext.SaveChangesAsync();
         return Results.Ok(votedActivity == null ? "Vote added" : "Vote removed");
     }
+
+    public async Task<List<Activity>> FilterActivitiesByHighestVotes(Guid tripId)
+    {
+        var activitiesToFilter = await dbContext.Activities
+            .Where(a => a.TripId == tripId)
+            .Include(a => a.Category)
+            .Include(a => a.User)
+            .Include(a => a.Votes)
+            .OrderByDescending(a => a.Votes.Count())
+            .ToListAsync();
+
+        return activitiesToFilter;
+    }
 }
 

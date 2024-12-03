@@ -15,4 +15,6 @@ public interface IActivityRepository
 	Task<List<Activity>> SearchActivityAsync(Guid tripId, string searchInput);
 
     Task<IResult> VoteOnActivity(Guid userId, Guid activityId);
+
+	Task<List<Activity>> FilterActivitiesByHighestVotes(Guid tripId);
 }
