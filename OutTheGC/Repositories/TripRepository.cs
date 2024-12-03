@@ -34,6 +34,7 @@ public class TripRepository : ITripRepository
     {
         return await dbContext.Trips
             .Include(t => t.Activities)
+            .ThenInclude(t => t.Votes)
             .Include(t => t.Participants)
             .Include(t => t.Owner)
             .SingleOrDefaultAsync(t => t.Id == tripId);

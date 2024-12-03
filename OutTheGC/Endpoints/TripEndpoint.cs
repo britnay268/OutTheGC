@@ -113,6 +113,7 @@ public static class TripEndpoint
                         a.User.FullName,
                         a.User.ImageUrl
                     },
+                    VoteCount = a.Votes.Count()
                 })
             });
         })
