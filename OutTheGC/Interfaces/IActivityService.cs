@@ -13,5 +13,7 @@ public interface IActivityService
     Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId);
 
     Task<List<Activity>> SearchActivityAsync(Guid tripId, string searchInput);
+
+    Task<IResult> VoteOnActivity(Guid userId, Guid activityId);
 }
 

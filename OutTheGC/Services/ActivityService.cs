@@ -38,5 +38,10 @@ public class ActivityService : IActivityService
     {
         return await _activityRepository.SearchActivityAsync(tripId, searchInput);
     }
+
+    public async Task<IResult> VoteOnActivity(Guid userId, Guid activityId)
+    {
+        return await _activityRepository.VoteOnActivity(userId, activityId);
+    }
 }
 

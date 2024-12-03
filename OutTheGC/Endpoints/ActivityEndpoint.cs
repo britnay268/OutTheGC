@@ -53,7 +53,7 @@ public static class ActivityEndpoint
             });
         })
         .WithOpenApi()
-        .Produces<List<Trip>>(StatusCodes.Status200OK)
+        .Produces<List<Activity>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
         group.MapPost("/activity", async (IActivityService activityService, Activity newActivity) =>
@@ -63,7 +63,7 @@ public static class ActivityEndpoint
             return Results.Created($"/activity/{activityToAdd.Id}", activityToAdd);
         })
         .WithOpenApi()
-        .Produces<Trip>(StatusCodes.Status201Created)
+        .Produces<Activity>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status404NotFound);
 
         group.MapPut("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Activity updatedActivity, Guid userId) =>
@@ -81,7 +81,7 @@ public static class ActivityEndpoint
             return Results.Ok(new { message = "Activity information has been updated." });
         })
         .WithOpenApi()
-        .Produces<User>(StatusCodes.Status200OK)
+        .Produces<Activity>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
         group.MapDelete("/activity/{activityId}", async (IActivityService activityService, Guid activityId, Guid userId) =>
@@ -135,7 +135,18 @@ public static class ActivityEndpoint
             }));
         })
         .WithOpenApi()
-        .Produces<List<Trip>>(StatusCodes.Status200OK);
+        .Produces<List<Activity>>(StatusCodes.Status200OK);
+
+        group.MapPut("/activity/{activityId}/vote/{userId}", async (IActivityService activityService, Guid userId, Guid activityId) =>
+        {
+            var results = await activityService.VoteOnActivity(userId, activityId);
+
+            return results;
+        })
+        .WithOpenApi()
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status204NoContent);
+
     }
 }
 
