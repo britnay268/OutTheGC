@@ -213,7 +213,7 @@ public static class TripEndpoint
 
             if (results == null)
             {
-                return Results.NotFound("There are no deleted or achived activities");
+                return Results.NotFound("There are no deleted or archived activities");
             }
 
             return Results.Ok(results.Select(r => new
