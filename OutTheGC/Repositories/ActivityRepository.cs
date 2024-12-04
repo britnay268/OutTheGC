@@ -20,6 +20,7 @@ public class ActivityRepository : IActivityRepository
                     .Include(a => a.Category)
                     .Include(a => a.User)
                     .Include(a => a.Comments)
+                    .Include(a => a.Votes)
                     .SingleOrDefaultAsync(a => a.Id == activityId);
     }
 

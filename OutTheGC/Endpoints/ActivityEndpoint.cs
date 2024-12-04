@@ -49,7 +49,8 @@ public static class ActivityEndpoint
                     sa.Content,
                     sa.CreatedAt,
                     sa.UpdatedAt
-                })
+                }),
+                VoteCount = singleActivity.Votes.Count()
             });
         })
         .WithOpenApi()
