@@ -182,5 +182,35 @@ public class ActivityRepository : IActivityRepository
 
         return activitiesToFilter;
     }
+
+    public async Task<Activity> ArchiveActivity(Guid activityId, bool isArchived)
+    {
+        var singleActivity = await dbContext.Activities.SingleOrDefaultAsync(a => a.Id == activityId);
+
+        if (singleActivity == null)
+        {
+            return null;
+        }
+
+        singleActivity.isArchived = isArchived;
+
+        await dbContext.SaveChangesAsync();
+        return singleActivity;
+    }
+
+    public async Task<Activity> MarkActivityAsDeleted(Guid activityId, bool isDeleted)
+    {
+        var singleActivity = await dbContext.Activities.SingleOrDefaultAsync(a => a.Id == activityId);
+
+        if (singleActivity == null)
+        {
+            return null;
+        }
+
+        singleActivity.isDeleted = isDeleted;
+
+        await dbContext.SaveChangesAsync();
+        return singleActivity;
+    }
 }
 

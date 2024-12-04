@@ -17,4 +17,8 @@ public interface IActivityRepository
     Task<IResult> VoteOnActivity(Guid userId, Guid activityId);
 
 	Task<List<Activity>> FilterActivitiesByHighestVotes(Guid tripId);
+
+	Task<Activity> ArchiveActivity(Guid activityId, bool isArchived);
+
+	Task<Activity> MarkActivityAsDeleted(Guid activityId, bool isDeleted);
 }

@@ -96,10 +96,10 @@ public static class ActivityEndpoint
                 });
             }
 
-            return Results.Ok(new { nessage = "Activity has been deleted." });
+            return Results.Ok(new { nessage = "Activity has been permanently deleted." });
         })
         .WithOpenApi()
-        .Produces<Trip>(StatusCodes.Status200OK)
+        .Produces<Activity>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
         group.MapGet("/activity/{tripId}/search", async (IActivityService activityService, Guid tripId, string searchInput) =>
@@ -178,6 +178,36 @@ public static class ActivityEndpoint
         .WithOpenApi()
         .Produces<List<Activity>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
+
+        group.MapPatch("/activity/{activityId}/archive", async (IActivityService activityService, Guid activityId, bool isArchived) =>
+        {
+            var results = await activityService.ArchiveActivity(activityId, isArchived);
+
+            if (results == null)
+            {
+                return Results.NotFound("Actvity does not exist");
+            }
+
+            return Results.Ok(results.isArchived ? "Activity is archived" : "Activity is unarchived");
+        })
+        .WithOpenApi()
+        .Produces<Activity>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
+
+        group.MapPatch("/activity/{activityId}/delete", async (IActivityService activityService, Guid activityId, bool isDeleted) =>
+        {
+            var results = await activityService.MarkActivityAsDeleted(activityId, isDeleted);
+
+            if (results == null)
+            {
+                return Results.NotFound("Actvity does not exist");
+            }
+
+            return Results.Ok(results.isArchived ? "Activity is archived" : "Activity is unarchived");
+        })
+        .WithOpenApi()
+        .Produces<Activity>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
     }
 }
 

@@ -33,7 +33,7 @@ public class TripRepository : ITripRepository
     public async Task<Trip?> GetTripsByIdAsync(Guid tripId)
     {
         return await dbContext.Trips
-            .Include(t => t.Activities)
+            .Include(t => t.Activities.Where(a => !a.isArchived && !a.isDeleted))
             .ThenInclude(t => t.Votes)
             .Include(t => t.Participants)
             .Include(t => t.Owner)
