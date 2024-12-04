@@ -2,6 +2,7 @@
 using OutTheGC.Interfaces;
 using OutTheGC.Data;
 using OutTheGC.Models;
+using OutTheGC.Repositories;
 
 namespace OutTheGC.Services;
 
@@ -47,6 +48,11 @@ public class TripService : ITripService
     public async Task<UserTrip> AddUserToTripAsync(Guid tripId, Guid userId, Guid ownerId)
     {
         return await _tripRepository.AddUserToTripAsync(tripId, userId, ownerId);
+    }
+
+    public async Task<List<Activity>> GetArchivedAndDeletedActivities(Guid tripId)
+    {
+        return await _tripRepository.GetArchivedAndDeletedActivities(tripId);
     }
 }
 

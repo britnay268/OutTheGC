@@ -17,5 +17,7 @@ public interface ITripService
     Task<UserTrip> DeleteUserFromTripAsync(Guid tripId, Guid userId, Guid ownerId);
 
     Task<UserTrip> AddUserToTripAsync(Guid tripId, Guid userId, Guid ownerId);
+
+    Task<List<Activity>> GetArchivedAndDeletedActivities(Guid tripId);
 }
 

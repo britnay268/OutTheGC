@@ -1,5 +1,6 @@
 ﻿using OutTheGC.Models;
 using OutTheGC.Interfaces;
+using OutTheGC.Services;
 
 namespace OutTheGC.Endpoints;
 
@@ -205,6 +206,44 @@ public static class TripEndpoint
         .WithOpenApi()
         .Produces<Trip>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
+
+        group.MapGet("/trip/{tripId}/activities/inactive", async (ITripService tripService, Guid tripId) =>
+        {
+            var results = await tripService.GetArchivedAndDeletedActivities(tripId);
+
+            if (results == null)
+            {
+                return Results.NotFound("There are no deleted or achived activities");
+            }
+
+            return Results.Ok(results.Select(r => new
+            {
+                r.Id,
+                r.TripId,
+                r.Title,
+                r.Notes,
+                r.Location,
+                r.Date,
+                r.Duration,
+                r.Cost,
+                r.CategoryId,
+                r.Category,
+                r.WebsiteUrl,
+                User = new
+                {
+                    r.User.Id,
+                    r.User.FullName,
+                    r.User.ImageUrl
+                },
+                VoteCount = r.Votes.Count(),
+                Archived = r.isArchived ? "Archived" : "Not Archived",
+                Deleted = r.isDeleted ? "Deleted" : "Not Deleted"
+            }));
+
+        })
+        .WithOpenApi()
+        .Produces<List<Activity>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }
 

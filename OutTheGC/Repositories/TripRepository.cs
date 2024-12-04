@@ -165,5 +165,22 @@ public class TripRepository : ITripRepository
         await dbContext.SaveChangesAsync();
         return newTripUser;
     }
+
+    public async Task<List<Activity>> GetArchivedAndDeletedActivities(Guid tripId)
+    {
+        var actvities = await dbContext.Activities
+            .Where(a => a.TripId == tripId && (a.isArchived || a.isDeleted))
+            .Include(a => a.Votes)
+            .Include(a => a.Category)
+            .Include(a => a.User)
+            .ToListAsync();
+
+        if (!actvities.Any())
+        {
+            return null;
+        }
+
+        return actvities;
+    }
 }
 
