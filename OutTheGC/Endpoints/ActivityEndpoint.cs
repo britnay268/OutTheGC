@@ -145,7 +145,7 @@ public static class ActivityEndpoint
             return results;
         })
         .WithOpenApi()
-        .Produces(StatusCodes.Status204NoContent)
+        .Produces<Activity>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
         group.MapGet("/activity/filter", async (IActivityService activityService, Guid tripId) =>

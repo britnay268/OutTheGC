@@ -155,7 +155,7 @@ public static class TripEndpoint
             return Results.Ok(new { message = "Trip information has been updated." });
         })
         .WithOpenApi()
-        .Produces<User>(StatusCodes.Status200OK)
+        .Produces<Trip>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
         group.MapDelete("/trip/{tripId}", async (ITripService tripService, Guid tripId, Guid ownerId) =>
