@@ -16,5 +16,16 @@ public class CategoryService : ICategoryService
     {
 		return await _categoryRepository.GetCategoriesAsync();
     }
+
+    public async Task<Category> CreateCategoryAsync(Category newCategory)
+	{
+		return await _categoryRepository.CreateCategoryAsync(newCategory);
+
+    }
+
+    public async Task<Category> DeleteCategoryAsync(Guid categoryId)
+	{
+		return await _categoryRepository.DeleteCategoryAsync(categoryId);
+    }
 }
 
