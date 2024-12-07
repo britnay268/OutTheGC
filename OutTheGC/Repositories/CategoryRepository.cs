@@ -52,5 +52,4 @@ public class CategoryRepository : ICategoryRepository
 		await dbContext.SaveChangesAsync();
 		return categoryExists;
 	}
-
 }

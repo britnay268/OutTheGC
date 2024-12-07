@@ -58,5 +58,10 @@ public class ActivityService : IActivityService
     {
         return await _activityRepository.MarkActivityAsDeleted(activityId, isDeleted);
     }
+
+    public async Task<List<Activity>> GetActivitiesByCategoriesAsync(Guid categoryId, Guid tripId)
+    {
+        return await _activityRepository.GetActivitiesByCategoriesAsync(categoryId, tripId);
+    }
 }
 

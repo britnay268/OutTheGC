@@ -54,7 +54,7 @@ public static class ActivityEndpoint
             });
         })
         .WithOpenApi()
-        .Produces<List<Activity>>(StatusCodes.Status200OK)
+        .Produces<Activity>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
         group.MapPost("/activity", async (IActivityService activityService, Activity newActivity) =>
@@ -111,7 +111,7 @@ public static class ActivityEndpoint
             {
                 return Results.NotFound(new
                 {
-                    error = $"No search results found!"
+                    message = "No search results found!"
                 });
             }
 
@@ -133,6 +133,7 @@ public static class ActivityEndpoint
                     sr.User.FullName,
                     sr.User.ImageUrl
                 },
+                VoteCount = sr.Votes.Count()
             }));
         })
         .WithOpenApi()
@@ -209,6 +210,42 @@ public static class ActivityEndpoint
         .WithOpenApi()
         .Produces<Activity>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
+
+        group.MapGet("/category/{categoryId}/activities", async (IActivityService activityService, Guid categoryId, Guid tripId) =>
+        {
+            var activitiesByCategory = await activityService.GetActivitiesByCategoriesAsync(categoryId, tripId);
+
+            if (!activitiesByCategory.Any())
+            {
+                return Results.NotFound(new
+                {
+                    message = "There are no activities in this category."
+                });
+            }
+
+            return Results.Ok(activitiesByCategory.Select(ac => new
+            {
+                ac.Id,
+                ac.Title,
+                ac.Notes,
+                ac.Location,
+                ac.Date,
+                ac.Duration,
+                ac.Cost,
+                ac.Category,
+                ac.WebsiteUrl,
+                User = new
+                {
+                    ac.User.FullName
+                },
+                ac.CreatedAt,
+                ac.UpdatedAt,
+                VoteCount = ac.Votes.Count()
+            }));
+        })
+        .WithOpenApi()
+        .Produces<List<Activity>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }
 

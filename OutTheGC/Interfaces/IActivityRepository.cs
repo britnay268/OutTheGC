@@ -21,4 +21,6 @@ public interface IActivityRepository
 	Task<Activity> ArchiveActivity(Guid activityId, bool isArchived);
 
 	Task<Activity> MarkActivityAsDeleted(Guid activityId, bool isDeleted);
+
+    Task<List<Activity>> GetActivitiesByCategoriesAsync(Guid categoryId, Guid tripId);
 }

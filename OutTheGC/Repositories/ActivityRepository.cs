@@ -127,6 +127,7 @@ public class ActivityRepository : IActivityRepository
             .Include(a => a.Category)
             .Include(a => a.User)
             .Include(a => a.Comments)
+            .Include(a => a.Votes)
             .ToListAsync();
 
         return seachActivity;
@@ -212,6 +213,22 @@ public class ActivityRepository : IActivityRepository
 
         await dbContext.SaveChangesAsync();
         return singleActivity;
+    }
+
+    public async Task<List<Activity>> GetActivitiesByCategoriesAsync(Guid categoryId, Guid tripId)
+    {
+        var activitiesByCategoy = await dbContext.Activities
+            .Include(a => a.User)
+            .Include(a => a.Votes)
+            .Where(a => a.TripId == tripId && a.CategoryId == categoryId)
+            .ToListAsync();
+
+        if (activitiesByCategoy == null)
+        {
+            return null;
+        }
+
+        return activitiesByCategoy;
     }
 }
 
