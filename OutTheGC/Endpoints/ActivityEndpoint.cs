@@ -204,7 +204,7 @@ public static class ActivityEndpoint
                 return Results.NotFound("Actvity does not exist");
             }
 
-            return Results.Ok(results.isArchived ? "Activity is archived" : "Activity is unarchived");
+            return Results.Ok(results.isArchived ? "Activity is deleted" : "Activity is recovered");
         })
         .WithOpenApi()
         .Produces<Activity>(StatusCodes.Status200OK)
