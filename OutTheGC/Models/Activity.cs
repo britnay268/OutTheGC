@@ -20,5 +20,8 @@ public class Activity
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public List<Comment> Comments { get; set; }
+    public List<User> Votes { get; set; }
+    public bool isDeleted { get; set; } = false;
+    public bool isArchived { get; set; } = false;
 }
 

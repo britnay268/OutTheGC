@@ -2,7 +2,6 @@
 using OutTheGC.Models;
 using OutTheGC.Data;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OutTheGC.Repositories;
 
@@ -21,6 +20,7 @@ public class ActivityRepository : IActivityRepository
                     .Include(a => a.Category)
                     .Include(a => a.User)
                     .Include(a => a.Comments)
+                    .Include(a => a.Votes)
                     .SingleOrDefaultAsync(a => a.Id == activityId);
     }
 
@@ -130,6 +130,88 @@ public class ActivityRepository : IActivityRepository
             .ToListAsync();
 
         return seachActivity;
+    }
+
+    public async Task<IResult> VoteOnActivity(Guid userId, Guid activityId)
+    {
+       var activitytoVoteOn = await dbContext.Activities
+                                    .Include(a => a.Trip)
+                                    .ThenInclude(t => t.Participants)
+                                    .SingleOrDefaultAsync(a => a.Id == activityId);
+
+        if (activitytoVoteOn == null)
+        {
+            return Results.NotFound("Activity does not exist");
+        }
+
+        // If the user is on the trip or is an owner of the trip with the activity, they should be the only one able to vote on an activity
+        var userOnTrip = activitytoVoteOn.Trip.Participants.Any(p => p.Id == userId) || activitytoVoteOn.Trip.UserId == userId;
+
+        if (!userOnTrip)
+        {
+            return Results.NotFound("User is not apart of this trip with this activity");
+        }
+
+        var votedActivity = await dbContext.UsersVotes.SingleOrDefaultAsync(uv => uv.UserId == userId && uv.ActivityId == activityId);
+
+        if (votedActivity == null)
+        {
+            dbContext.UsersVotes.Add(new UserVote
+            {
+                UserId = userId,
+                ActivityId = activityId
+            });
+        }
+        else
+        {
+            dbContext.UsersVotes.Remove(votedActivity);
+        }
+
+        await dbContext.SaveChangesAsync();
+        return Results.Ok(votedActivity == null ? "Vote added" : "Vote removed");
+    }
+
+    public async Task<List<Activity>> FilterActivitiesByHighestVotes(Guid tripId)
+    {
+        var activitiesToFilter = await dbContext.Activities
+            .Where(a => a.TripId == tripId)
+            .Include(a => a.Category)
+            .Include(a => a.User)
+            .Include(a => a.Votes)
+            .OrderByDescending(a => a.Votes.Count())
+            .ToListAsync();
+
+        return activitiesToFilter;
+    }
+
+    public async Task<Activity> ArchiveActivity(Guid activityId, bool isArchived)
+    {
+        var singleActivity = await dbContext.Activities.SingleOrDefaultAsync(a => a.Id == activityId);
+
+        if (singleActivity == null)
+        {
+            return null;
+        }
+
+        singleActivity.isArchived = isArchived;
+
+        await dbContext.SaveChangesAsync();
+        return singleActivity;
+    }
+
+    public async Task<Activity> MarkActivityAsDeleted(Guid activityId, bool isDeleted)
+    {
+        var singleActivity = await dbContext.Activities.SingleOrDefaultAsync(a => a.Id == activityId);
+
+        if (singleActivity == null)
+        {
+            return null;
+        }
+
+        singleActivity.isDeleted = isDeleted;
+
+        await dbContext.SaveChangesAsync();
+        return singleActivity;
     }
 }
 

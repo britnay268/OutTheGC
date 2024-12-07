@@ -37,7 +37,7 @@ public static class CommentEndpoint
             });
         })
         .WithOpenApi()
-        .Produces<Trip>(StatusCodes.Status200OK)
+        .Produces<Comment>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
         group.MapPost("/comment", async (ICommentService commentService, Comment newComment) =>
@@ -47,7 +47,7 @@ public static class CommentEndpoint
             return Results.Created($"/activity/{commentToAdd.Id}", commentToAdd);
         })
         .WithOpenApi()
-        .Produces<Trip>(StatusCodes.Status201Created)
+        .Produces<Comment>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status404NotFound);
 
         group.MapPut("/comment/{commentId}", async (ICommentService commentService, Guid commentId, Comment updatedComment, Guid userId) =>
@@ -65,7 +65,7 @@ public static class CommentEndpoint
             return Results.Ok(new { message = "Comment information has been updated." });
         })
         .WithOpenApi()
-        .Produces<User>(StatusCodes.Status200OK)
+        .Produces<Comment>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
         group.MapDelete("/comment/{commentId}", async (ICommentService commentService, Guid commentId, Guid userId) =>
@@ -83,7 +83,7 @@ public static class CommentEndpoint
             return Results.Ok(new { message = "Comment has been deleted." });
         })
         .WithOpenApi()
-        .Produces<Trip>(StatusCodes.Status200OK)
+        .Produces<Comment>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
     }
 }

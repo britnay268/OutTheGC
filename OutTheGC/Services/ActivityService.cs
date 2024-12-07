@@ -38,5 +38,25 @@ public class ActivityService : IActivityService
     {
         return await _activityRepository.SearchActivityAsync(tripId, searchInput);
     }
+
+    public async Task<IResult> VoteOnActivity(Guid userId, Guid activityId)
+    {
+        return await _activityRepository.VoteOnActivity(userId, activityId);
+    }
+
+    public async Task<List<Activity>> FilterActivitiesByHighestVotes(Guid tripId)
+    {
+        return await _activityRepository.FilterActivitiesByHighestVotes(tripId);
+    }
+
+    public async Task<Activity> ArchiveActivity(Guid activityId, bool isArchived)
+    {
+        return await _activityRepository.ArchiveActivity(activityId, isArchived);
+    }
+
+    public async Task<Activity> MarkActivityAsDeleted(Guid activityId, bool isDeleted)
+    {
+        return await _activityRepository.MarkActivityAsDeleted(activityId, isDeleted);
+    }
 }
 

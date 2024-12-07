@@ -60,6 +60,12 @@ public class OutTheGCDbContext : DbContext
             .WithMany()                      
             .HasForeignKey(e => e.UserId);
 
+        // An activity can have many uservotes and user can vote on multiple activities
+        modelBuilder.Entity<Activity>()
+            .HasMany(uv => uv.Votes)
+            .WithMany(uv => uv.VotedActvities)
+            .UsingEntity<UserVote>();
+
         modelBuilder.Entity<Activity>().HasData(ActivityData.Activities);
         modelBuilder.Entity<Category>().HasData(CategoryData.Categories);
         modelBuilder.Entity<Comment>().HasData(CommentData.Comments);

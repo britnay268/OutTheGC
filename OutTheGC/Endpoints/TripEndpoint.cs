@@ -1,5 +1,6 @@
 ﻿using OutTheGC.Models;
 using OutTheGC.Interfaces;
+using OutTheGC.Services;
 
 namespace OutTheGC.Endpoints;
 
@@ -113,6 +114,7 @@ public static class TripEndpoint
                         a.User.FullName,
                         a.User.ImageUrl
                     },
+                    VoteCount = a.Votes.Count()
                 })
             });
         })
@@ -153,7 +155,7 @@ public static class TripEndpoint
             return Results.Ok(new { message = "Trip information has been updated." });
         })
         .WithOpenApi()
-        .Produces<User>(StatusCodes.Status200OK)
+        .Produces<Trip>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
         group.MapDelete("/trip/{tripId}", async (ITripService tripService, Guid tripId, Guid ownerId) =>
@@ -204,6 +206,44 @@ public static class TripEndpoint
         .WithOpenApi()
         .Produces<Trip>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
+
+        group.MapGet("/trip/{tripId}/activities/inactive", async (ITripService tripService, Guid tripId) =>
+        {
+            var results = await tripService.GetArchivedAndDeletedActivities(tripId);
+
+            if (results == null)
+            {
+                return Results.NotFound("There are no deleted or archived activities");
+            }
+
+            return Results.Ok(results.Select(r => new
+            {
+                r.Id,
+                r.TripId,
+                r.Title,
+                r.Notes,
+                r.Location,
+                r.Date,
+                r.Duration,
+                r.Cost,
+                r.CategoryId,
+                r.Category,
+                r.WebsiteUrl,
+                User = new
+                {
+                    r.User.Id,
+                    r.User.FullName,
+                    r.User.ImageUrl
+                },
+                VoteCount = r.Votes.Count(),
+                Archived = r.isArchived ? "Archived" : "Not Archived",
+                Deleted = r.isDeleted ? "Deleted" : "Not Deleted"
+            }));
+
+        })
+        .WithOpenApi()
+        .Produces<List<Activity>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }
 

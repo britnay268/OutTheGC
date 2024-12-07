@@ -13,4 +13,12 @@ public interface IActivityRepository
 	Task<Activity> DeleteActivityAsync(Guid activityId, Guid userId);
 
 	Task<List<Activity>> SearchActivityAsync(Guid tripId, string searchInput);
+
+    Task<IResult> VoteOnActivity(Guid userId, Guid activityId);
+
+	Task<List<Activity>> FilterActivitiesByHighestVotes(Guid tripId);
+
+	Task<Activity> ArchiveActivity(Guid activityId, bool isArchived);
+
+	Task<Activity> MarkActivityAsDeleted(Guid activityId, bool isDeleted);
 }
