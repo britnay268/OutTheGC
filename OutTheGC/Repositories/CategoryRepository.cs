@@ -52,4 +52,20 @@ public class CategoryRepository : ICategoryRepository
 		await dbContext.SaveChangesAsync();
 		return categoryExists;
 	}
+
+    public async Task<List<Activity>> GetActivitiesByCategoriesAsync(Guid categoryId, Guid tripId)
+    {
+        var activitiesByCategoy = await dbContext.Activities
+            .Include(a => a.User)
+            .Include(a => a.Votes)
+            .Where(a => a.TripId == tripId && a.CategoryId == categoryId)
+            .ToListAsync();
+
+        if (activitiesByCategoy == null)
+        {
+            return null;
+        }
+
+        return activitiesByCategoy;
+    }
 }

@@ -9,5 +9,7 @@ public interface ICategoryRepository
     Task<Category> CreateCategoryAsync(Category newCategory);
 
     Task<Category> DeleteCategoryAsync(Guid categoryId);
+
+    Task<List<Activity>> GetActivitiesByCategoriesAsync(Guid categoryId, Guid tripId);
 }
 
