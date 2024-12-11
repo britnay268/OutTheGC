@@ -7,6 +7,7 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using Org.BouncyCastle.Crypto.Macs;
 using MailKit.Security;
+using static System.Net.WebRequestMethods;
 
 namespace OutTheGC.Repositories;
 
@@ -202,6 +203,14 @@ public class TripRepository : ITripRepository
             return null;
         }
 
+        var tripToBeShared = await dbContext.Trips.Where(t => t.Id == sendEmail.TripId && t.UserId == sendEmail.UserId).Select(t => t.Title).SingleOrDefaultAsync();
+
+
+        if (tripToBeShared == null)
+        {
+            throw new Exception("User is not an owner of the trip");
+        }
+
         var gmailEmail = _config["GmailEmail"];
         var gmailPassword = _config["GmailPassword"];
 
@@ -209,11 +218,12 @@ public class TripRepository : ITripRepository
         message.From.Add(new MailboxAddress("Britnay's Out The GC App", gmailEmail));
         message.To.Add(new MailboxAddress("", sendEmail.Recipient));
         message.Subject = $"Out The GC Trip Invitation";
-        message.Body = new TextPart("plain")
+        var builder = new BodyBuilder
         {
-            Text = $"{userSharingTrip} is inviting to you to be apart of their trip"
+            HtmlBody =
+            @$"{userSharingTrip} is inviting to you to be apart of <b>Trip:</b> <a href='https://www.google.com/'>{tripToBeShared}</a>. <br><br>The link above currently goes to google as the FE in under construction!"
         };
-
+        message.Body = builder.ToMessageBody();
 
         using (var client = new SmtpClient())
         {

@@ -256,6 +256,7 @@ public static class TripEndpoint
                     error = "The user does not exist."
                 });
             }
+            await tripService.ShareTripViaEmailAsync(sendEmail);
 
             return Results.Ok(new { message = "Email has been sent!" });
         })
