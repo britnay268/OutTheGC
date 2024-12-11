@@ -31,7 +31,7 @@ public class TripRepository : ITripRepository
         }
 
         return await dbContext.Trips
-            .Where(t => t.UserId == userId)
+            .Where(t => t.UserId == userId || t.Participants.Any(p => p.Id == userId))
             .Include(t => t.Owner)
             .Include(t => t.Participants)
             .ToListAsync();
