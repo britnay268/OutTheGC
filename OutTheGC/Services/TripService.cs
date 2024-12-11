@@ -3,6 +3,7 @@ using OutTheGC.Interfaces;
 using OutTheGC.Data;
 using OutTheGC.Models;
 using OutTheGC.Repositories;
+using OutTheGC.DTOs;
 
 namespace OutTheGC.Services;
 
@@ -53,6 +54,11 @@ public class TripService : ITripService
     public async Task<List<Activity>> GetArchivedAndDeletedActivities(Guid tripId)
     {
         return await _tripRepository.GetArchivedAndDeletedActivities(tripId);
+    }
+
+    public async Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail)
+    {
+        return await _tripRepository.ShareTripViaEmailAsync(sendEmail);
     }
 }
 

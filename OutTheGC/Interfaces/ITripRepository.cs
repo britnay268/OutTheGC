@@ -1,4 +1,5 @@
-﻿using OutTheGC.Models;
+﻿using OutTheGC.DTOs;
+using OutTheGC.Models;
 
 namespace OutTheGC.Interfaces;
 
@@ -19,5 +20,7 @@ public interface ITripRepository
 	Task<UserTrip> AddUserToTripAsync(Guid tripId, Guid userId, Guid ownerId);
 
     Task<List<Activity>> GetArchivedAndDeletedActivities(Guid tripId);
+
+    Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail);
 }
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OutTheGC.Data;
@@ -11,9 +12,10 @@ using OutTheGC.Data;
 namespace OutTheGC.Migrations
 {
     [DbContext(typeof(OutTheGCDbContext))]
-    partial class OutTheGCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207155852_UpdatedCategoryModel")]
+    partial class UpdatedCategoryModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

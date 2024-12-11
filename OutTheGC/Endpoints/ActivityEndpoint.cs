@@ -54,7 +54,7 @@ public static class ActivityEndpoint
             });
         })
         .WithOpenApi()
-        .Produces<List<Activity>>(StatusCodes.Status200OK)
+        .Produces<Activity>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
         group.MapPost("/activity", async (IActivityService activityService, Activity newActivity) =>
@@ -111,7 +111,7 @@ public static class ActivityEndpoint
             {
                 return Results.NotFound(new
                 {
-                    error = $"No search results found!"
+                    message = "No search results found!"
                 });
             }
 
@@ -133,6 +133,7 @@ public static class ActivityEndpoint
                     sr.User.FullName,
                     sr.User.ImageUrl
                 },
+                VoteCount = sr.Votes.Count()
             }));
         })
         .WithOpenApi()
@@ -204,7 +205,7 @@ public static class ActivityEndpoint
                 return Results.NotFound("Actvity does not exist");
             }
 
-            return Results.Ok(results.isArchived ? "Activity is archived" : "Activity is unarchived");
+            return Results.Ok(results.isArchived ? "Activity is deleted" : "Activity is recovered");
         })
         .WithOpenApi()
         .Produces<Activity>(StatusCodes.Status200OK)
