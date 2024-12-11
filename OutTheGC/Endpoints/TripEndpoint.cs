@@ -247,7 +247,17 @@ public static class TripEndpoint
 
         group.MapPost("/trip/share", async (ITripService tripService, EmailDTO sendEmail) =>
         {
-            await tripService.ShareTripViaEmailAsync(sendEmail);
+            var shareTrip = await tripService.ShareTripViaEmailAsync(sendEmail);
+
+            if (shareTrip == null)
+            {
+                return Results.NotFound(new
+                {
+                    error = "The user does not exist."
+                });
+            }
+
+            return Results.Ok(new { message = "Email has been sent!" });
         })
         .WithOpenApi()
         .Produces<IResult>(StatusCodes.Status200OK);

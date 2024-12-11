@@ -21,6 +21,6 @@ public interface ITripService
 
     Task<List<Activity>> GetArchivedAndDeletedActivities(Guid tripId);
 
-    Task ShareTripViaEmailAsync(EmailDTO sendEmail);
+    Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail);
 }
 

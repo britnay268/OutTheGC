@@ -56,9 +56,9 @@ public class TripService : ITripService
         return await _tripRepository.GetArchivedAndDeletedActivities(tripId);
     }
 
-    public async Task ShareTripViaEmailAsync(EmailDTO sendEmail)
+    public async Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail)
     {
-        await _tripRepository.ShareTripViaEmailAsync(sendEmail);
+        return await _tripRepository.ShareTripViaEmailAsync(sendEmail);
     }
 }
 

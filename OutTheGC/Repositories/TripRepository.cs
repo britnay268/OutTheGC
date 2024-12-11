@@ -190,12 +190,17 @@ public class TripRepository : ITripRepository
         return actvities;
     }
 
-    public async Task ShareTripViaEmailAsync(EmailDTO sendEmail)
+    public async Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail)
     {
         var userSharingTrip = await dbContext.Users
                     .Where(u => u.Id == sendEmail.UserId)
                     .Select(u => u.FullName)
                     .SingleOrDefaultAsync();
+
+        if (userSharingTrip == null)
+        {
+            return null;
+        }
 
         var gmailEmail = _config["GmailEmail"];
         var gmailPassword = _config["GmailPassword"];
@@ -217,6 +222,8 @@ public class TripRepository : ITripRepository
             client.Send(message);
             client.Disconnect(true);
         }
+
+        return Results.Ok();
     }
 
 }
