@@ -7,7 +7,8 @@ using OutTheGC.Repositories;
 using OutTheGC.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var gmailEmail = builder.Configuration["GmailEmail"];
+var gmailPassword = builder.Configuration["GmailPassword"];
 
 // allows passing datetimes without time zone data 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

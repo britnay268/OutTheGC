@@ -1,6 +1,6 @@
 ﻿using OutTheGC.Models;
 using OutTheGC.Interfaces;
-using OutTheGC.Services;
+using OutTheGC.DTOs;
 
 namespace OutTheGC.Endpoints;
 
@@ -244,6 +244,13 @@ public static class TripEndpoint
         .WithOpenApi()
         .Produces<List<Activity>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
+
+        group.MapPost("/trip/share", async (ITripService tripService, EmailDTO sendEmail) =>
+        {
+            await tripService.ShareTripViaEmailAsync(sendEmail);
+        })
+        .WithOpenApi()
+        .Produces<IResult>(StatusCodes.Status200OK);
     }
 }
 
