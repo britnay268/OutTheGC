@@ -4,8 +4,8 @@ namespace OutTheGC.DTOs;
 
 public class EmailDTO
 {
-	public string Recipient { get; set; }
-	public Guid UserId { get; set; }
+	public string RecipientEmail { get; set; }
+	public Guid SenderId { get; set; }
 	public Guid TripId { get; set; }
 }
 

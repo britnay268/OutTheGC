@@ -14,5 +14,6 @@ public class User
     public List <Comment> Comments { get; set; }
     public List <Trip> Trips { get; set; }
     public List <Activity> VotedActvities { get; set; }
+    public List<TripInvitation> Invitations { get; set; }
 }
 

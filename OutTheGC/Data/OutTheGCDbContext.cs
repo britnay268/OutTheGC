@@ -12,6 +12,7 @@ public class OutTheGCDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<UserTrip> UserTrips { get; set; }
     public DbSet<UserVote> UsersVotes { get; set; }
+    public DbSet<TripInvitation> TripInvitations { get; set; }
 
     public OutTheGCDbContext(DbContextOptions<OutTheGCDbContext> context) : base(context)
     {
@@ -54,7 +55,7 @@ public class OutTheGCDbContext : DbContext
             .WithMany(e => e.Participants)
             .UsingEntity<UserTrip>();
 
-        // Trip can have one owner
+        // User can own multiple trips
         modelBuilder.Entity<Trip>()
             .HasOne(e => e.Owner)            
             .WithMany()                      
@@ -65,6 +66,21 @@ public class OutTheGCDbContext : DbContext
             .HasMany(uv => uv.Votes)
             .WithMany(uv => uv.VotedActvities)
             .UsingEntity<UserVote>();
+
+        modelBuilder.Entity<Trip>()
+            .HasMany(t => t.SentInvitations)
+            .WithOne(si => si.Trip)
+            .HasForeignKey(t => t.TripId);
+
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Invitations)
+            .WithOne()
+            .HasForeignKey(u => u.SenderId);
+
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Invitations)
+            .WithOne()
+            .HasForeignKey(u => u.RecipientId);
 
         modelBuilder.Entity<Activity>().HasData(ActivityData.Activities);
         modelBuilder.Entity<Category>().HasData(CategoryData.Categories);

@@ -18,4 +18,5 @@ public class Trip
     public DateTime? UpdatedAt { get; set; }
     public List<Activity> Activities { get; set; }
     public List<User> Participants { get; set; }
+    public List<TripInvitation> SentInvitations { get; set; }
 }
