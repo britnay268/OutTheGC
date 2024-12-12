@@ -194,7 +194,7 @@ public class TripRepository : ITripRepository
     public async Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail)
     {
         var userSharingTrip = await dbContext.Users
-                    .Where(u => u.Id == sendEmail.UserId)
+                    .Where(u => u.Id == sendEmail.SenderId)
                     .Select(u => u.FullName)
                     .SingleOrDefaultAsync();
 
@@ -203,7 +203,7 @@ public class TripRepository : ITripRepository
             return null;
         }
 
-        var tripToBeShared = await dbContext.Trips.Where(t => t.Id == sendEmail.TripId && t.UserId == sendEmail.UserId).Select(t => t.Title).SingleOrDefaultAsync();
+        var tripToBeShared = await dbContext.Trips.Where(t => t.Id == sendEmail.TripId && t.UserId == sendEmail.SenderId).Select(t => t.Title).SingleOrDefaultAsync();
 
 
         if (tripToBeShared == null)
@@ -216,7 +216,7 @@ public class TripRepository : ITripRepository
 
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress("Britnay's Out The GC App", gmailEmail));
-        message.To.Add(new MailboxAddress("", sendEmail.Recipient));
+        message.To.Add(new MailboxAddress("", sendEmail.RecipientEmail));
         message.Subject = $"Out The GC Trip Invitation";
         var builder = new BodyBuilder
         {
@@ -232,6 +232,21 @@ public class TripRepository : ITripRepository
             client.Send(message);
             client.Disconnect(true);
         }
+
+        var findRecipient = await dbContext.Users.Where(u => u.Email == sendEmail.RecipientEmail).Select(u => u.Id).SingleOrDefaultAsync();
+
+        TripInvitation invitationCreation = new TripInvitation
+        {
+            SenderId = sendEmail.SenderId,
+            TripId = sendEmail.TripId,
+            RecipientEmail = sendEmail.RecipientEmail,
+            SentDate = DateTime.Now,
+            ExpirationDate = DateTime.Now.AddDays(14),
+            RecipientId = findRecipient == null ? null : findRecipient
+        };
+
+        dbContext.TripInvitations.Add(invitationCreation);
+        await dbContext.SaveChangesAsync();
 
         return Results.Ok();
     }

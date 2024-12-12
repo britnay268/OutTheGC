@@ -77,10 +77,11 @@ public class OutTheGCDbContext : DbContext
             .WithOne()
             .HasForeignKey(u => u.SenderId);
 
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.Invitations)
-            .WithOne()
-            .HasForeignKey(u => u.RecipientId);
+        //modelBuilder.Entity<User>()
+        //    .HasMany(u => u.Invitations)
+        //    .WithOne()
+        //    .HasForeignKey(u => u.RecipientId)
+        //    .IsRequired(false);
 
         modelBuilder.Entity<Activity>().HasData(ActivityData.Activities);
         modelBuilder.Entity<Category>().HasData(CategoryData.Categories);
