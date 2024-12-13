@@ -1,6 +1,13 @@
 ﻿using System;
 namespace OutTheGC.Models;
 
+public enum InvitationStatus
+{
+    Pending,
+    Approved,
+    Denied
+}
+
 public class TripInvitation
 {
     public Guid Id { get; set; }
@@ -11,5 +18,6 @@ public class TripInvitation
     public DateTime SentDate { get; set; }
     public DateTime ExpirationDate { get; set; }
     public Trip Trip { get; set; }
+    public InvitationStatus Status { get; set; }
 }
 

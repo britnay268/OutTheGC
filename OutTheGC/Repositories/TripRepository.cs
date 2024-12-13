@@ -242,13 +242,29 @@ public class TripRepository : ITripRepository
             RecipientEmail = sendEmail.RecipientEmail,
             SentDate = DateTime.Now,
             ExpirationDate = DateTime.Now.AddDays(14),
-            RecipientId = findRecipient == null ? null : findRecipient
+            RecipientId = findRecipient == null ? null : findRecipient,
+            Status = InvitationStatus.Pending
         };
 
         dbContext.TripInvitations.Add(invitationCreation);
         await dbContext.SaveChangesAsync();
 
         return Results.Ok();
+    }
+
+    public async Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, InvitationStatus? status = null)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, InvitationStatus status)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<TripInvitation> DeleteInvitationAsync(Guid invitationId, Guid userId)
+    {
+        throw new NotImplementedException();
     }
 
 }

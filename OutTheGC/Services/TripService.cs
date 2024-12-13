@@ -60,5 +60,20 @@ public class TripService : ITripService
     {
         return await _tripRepository.ShareTripViaEmailAsync(sendEmail);
     }
+
+    public async Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, InvitationStatus? status = null)
+    {
+        return await _tripRepository.GetListofUserInvitaionsAsync(userId, status);
+    }
+
+    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, InvitationStatus status)
+    {
+        return await _tripRepository.RespondToInvitationAsync(invitationId, status);
+    }
+
+    public async Task<TripInvitation> DeleteInvitationAsync(Guid invitationId, Guid userId)
+    {
+        return await _tripRepository.DeleteInvitationAsync(invitationId, userId);
+    }
 }
 
