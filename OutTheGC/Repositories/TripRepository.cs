@@ -277,15 +277,15 @@ public class TripRepository : ITripRepository
         return await invitations.ToListAsync();
     }
 
-    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string status)
+    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string response)
     {
         InvitationStatus? parsedStatus = null;
 
-        if (!string.IsNullOrWhiteSpace(status))
+        if (!string.IsNullOrWhiteSpace(response))
         {
-            if (!Enum.TryParse<InvitationStatus>(status, true, out var result))
+            if (!Enum.TryParse<InvitationStatus>(response, true, out var result))
             {
-                throw new ArgumentException($"Invalid status: {status}. Valid values are: {string.Join(", ", Enum.GetNames(typeof(InvitationStatus)))}");
+                throw new ArgumentException($"Invalid status: {response}. Valid values are: approved or denied");
             }
 
             parsedStatus = result;

@@ -25,7 +25,7 @@ public interface ITripService
 
     Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, string? status = null);
 
-    Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string status);
+    Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string response);
 
     Task<TripInvitation> DeleteInvitationAsync(Guid invitationId, Guid userId);
 }

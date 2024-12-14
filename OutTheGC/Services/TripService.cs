@@ -66,9 +66,9 @@ public class TripService : ITripService
         return await _tripRepository.GetListofUserInvitaionsAsync(userId, status);
     }
 
-    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string status)
+    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string response)
     {
-        return await _tripRepository.RespondToInvitationAsync(invitationId, status);
+        return await _tripRepository.RespondToInvitationAsync(invitationId, response);
     }
 
     public async Task<TripInvitation> DeleteInvitationAsync(Guid invitationId, Guid userId)
