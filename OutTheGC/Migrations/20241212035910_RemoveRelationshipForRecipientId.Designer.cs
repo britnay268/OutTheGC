@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OutTheGC.Data;
@@ -11,9 +12,10 @@ using OutTheGC.Data;
 namespace OutTheGC.Migrations
 {
     [DbContext(typeof(OutTheGCDbContext))]
-    partial class OutTheGCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241212035910_RemoveRelationshipForRecipientId")]
+    partial class RemoveRelationshipForRecipientId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -444,7 +446,7 @@ namespace OutTheGC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ae426b06-094a-49dd-9a86-c5d8e0d8411c"),
+                            Id = new Guid("94e99cf4-d332-410e-aa14-934b19ddbd4d"),
                             ActivityId = new Guid("175a8012-6200-4180-915b-f3e4d604923d"),
                             Content = "The beach day sounds so relaxing! Can’t wait to enjoy the sun and sea breeze.",
                             CreatedAt = new DateTime(2024, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -452,7 +454,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("69f6738e-ddc1-47d6-b726-1ca8ecd54545"),
+                            Id = new Guid("c203268f-ebc9-4baf-abea-5e5aa0491433"),
                             ActivityId = new Guid("4a7cb92b-2b6a-4316-8bb0-402497c47bdb"),
                             Content = "The underwater adventure is a must-try! The reefs look amazing.",
                             CreatedAt = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -460,7 +462,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cc78771f-bace-48d1-b7db-0ce895e7d6ff"),
+                            Id = new Guid("3278e7d5-4ca9-46d2-87fc-2e7211c77836"),
                             ActivityId = new Guid("8d69e4e8-62b1-465d-bfc7-1a94c3d07a71"),
                             Content = "Island hopping will be such a fun way to explore the Maldives!",
                             CreatedAt = new DateTime(2024, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -468,7 +470,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e42e4412-13cb-45ee-8276-687e7d4071fa"),
+                            Id = new Guid("e5cc13e3-5f71-4608-b450-4f7b36d5675b"),
                             ActivityId = new Guid("d7e309b1-dde9-48f5-99b5-7d3c6f153032"),
                             Content = "Skiing in the Alps is a dream come true! Can’t wait for this adventure.",
                             CreatedAt = new DateTime(2023, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -476,7 +478,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("56c91246-7bed-4839-80c1-26b9961fb741"),
+                            Id = new Guid("3aeffaa2-c370-4213-8637-304104d3ca94"),
                             ActivityId = new Guid("a3c9c52c-038f-4b3e-a9bc-26496fcbfa0b"),
                             Content = "I’m excited for the hiking trip. The views are going to be breathtaking!",
                             CreatedAt = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -484,7 +486,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("57a6ffe1-fe80-4e37-9efa-12015440cbdc"),
+                            Id = new Guid("46bc90d6-e7af-4260-83ec-da7be9c458cc"),
                             ActivityId = new Guid("b8d3c7d2-8a8e-45d0-8b1a-cbc32bc3b53d"),
                             Content = "Alpine dining sounds so cozy. Can’t wait to try the Swiss specialties.",
                             CreatedAt = new DateTime(2023, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -492,7 +494,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c62a97ba-d224-477a-9b6a-f2b051141618"),
+                            Id = new Guid("814cdcca-4650-4038-aa01-f990bd50497c"),
                             ActivityId = new Guid("ff8f6c32-8e22-4a3c-8d8a-2f1e5b557477"),
                             Content = "The national park tour will be such a scenic experience. Looking forward to it!",
                             CreatedAt = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -500,7 +502,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ef3a9d07-082b-4bc2-a340-80a37f98f392"),
+                            Id = new Guid("a24004d8-9dd0-4193-bdc3-c04ee866c151"),
                             ActivityId = new Guid("bfa47491-e758-4330-bc10-2e60d9a3479d"),
                             Content = "A sunset drive along the coast sounds like the perfect way to relax.",
                             CreatedAt = new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -508,7 +510,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bbc4ed5b-535f-4e9b-ae0b-1b3e42596aef"),
+                            Id = new Guid("c8116aff-57c3-4f06-923b-3a9c4121e1f1"),
                             ActivityId = new Guid("d7f9d8ed-4f65-4859-a837-d4a512bf7a6b"),
                             Content = "Looking forward to the classic diner experience on Route 66!",
                             CreatedAt = new DateTime(2024, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -516,7 +518,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2d32cfe7-d537-4264-b2be-022bcb71e9aa"),
+                            Id = new Guid("c20baa60-5e0c-465c-a31a-e50e97f8756f"),
                             ActivityId = new Guid("f2d85352-0c93-4f58-9739-4e0d63ca90d1"),
                             Content = "I’ve always wanted to visit this museum. The history here is so rich!",
                             CreatedAt = new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -524,7 +526,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6a6396a5-bd09-4266-ab64-d82ea72ac757"),
+                            Id = new Guid("b1bd26fb-d563-4fb0-8ac5-ca9ba39ebe5c"),
                             ActivityId = new Guid("343f58ed-97d1-4324-b231-71e7a3d577e5"),
                             Content = "The cultural dance show will be such a treat. I love traditional performances.",
                             CreatedAt = new DateTime(2024, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -532,7 +534,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5eaaf086-621e-4ec5-9471-958f0c975836"),
+                            Id = new Guid("150e712f-55c0-46c1-8697-121f3f014abf"),
                             ActivityId = new Guid("da699d06-56b7-4fbd-89b1-b24fdf9b7ab2"),
                             Content = "Exploring the old town will be such a charming experience. Can’t wait!",
                             CreatedAt = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -540,7 +542,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f5be65e2-5d85-48a9-a9f4-6a6aa631d942"),
+                            Id = new Guid("6864b8f0-6514-4c16-98d4-466d6f1ad7e6"),
                             ActivityId = new Guid("64f3cda1-70cf-4b52-99b2-d9c60a5b5898"),
                             Content = "Beach day with blue waters and sun? Yes, please!",
                             CreatedAt = new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -548,7 +550,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c8a0970c-943a-4230-909f-038723c75bc1"),
+                            Id = new Guid("569d3756-8e80-46a3-b4c0-337e1ead80f0"),
                             ActivityId = new Guid("9b0ecf93-c42d-4c45-9ecb-85b8fe7e2d7c"),
                             Content = "Tasting tropical drinks will be a refreshing break. Can’t wait!",
                             CreatedAt = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -556,7 +558,7 @@ namespace OutTheGC.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a829b201-04e8-4d66-8b1d-726f6438373f"),
+                            Id = new Guid("5db02ddb-fd00-4f64-8d54-e6aa56d49562"),
                             ActivityId = new Guid("92d62312-4397-4c9d-9172-2c8a53e8c6a4"),
                             Content = "Snorkeling at Coral Reef Bay will be a highlight of the trip for sure!",
                             CreatedAt = new DateTime(2024, 2, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -712,9 +714,6 @@ namespace OutTheGC.Migrations
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
                     b.Property<Guid>("TripId")
                         .HasColumnType("uuid");
 
@@ -837,28 +836,28 @@ namespace OutTheGC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("68840bbc-076e-437b-8f0a-c9216899fd91"),
+                            Id = new Guid("01cad319-df4b-4370-abfe-514293f38d39"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TripId = new Guid("6f927882-1196-4d72-917d-972c6de3f1b4"),
                             UserId = new Guid("59c5b94d-8015-48cd-bd86-0dbe486c4719")
                         },
                         new
                         {
-                            Id = new Guid("286be131-ea5a-4099-afa7-26db4efdd6eb"),
+                            Id = new Guid("90353124-48cf-4cba-86d5-db0b206f1475"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TripId = new Guid("6f927882-1196-4d72-917d-972c6de3f1b4"),
                             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc")
                         },
                         new
                         {
-                            Id = new Guid("4918405d-c748-415c-9492-bc96a9aa02cd"),
+                            Id = new Guid("b0efd82d-9e29-465d-bed8-5045320ecdcf"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TripId = new Guid("de59cf42-eb57-4045-b7bc-a578db398ad2"),
                             UserId = new Guid("0eaed767-eecd-4d19-a853-9da895e78057")
                         },
                         new
                         {
-                            Id = new Guid("6522e40a-bac2-4567-908d-dcd071166cb8"),
+                            Id = new Guid("0d7b8b12-f570-46e5-a71c-bc2775de05e4"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TripId = new Guid("172d5607-5dbd-4361-bf3f-fa76bfb84f70"),
                             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc")
@@ -888,25 +887,25 @@ namespace OutTheGC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("58f3986c-2027-4a80-8559-87e669817032"),
+                            Id = new Guid("5545539f-b61c-4241-a569-0bb2691b803d"),
                             ActivityId = new Guid("4a7cb92b-2b6a-4316-8bb0-402497c47bdb"),
                             UserId = new Guid("59c5b94d-8015-48cd-bd86-0dbe486c4719")
                         },
                         new
                         {
-                            Id = new Guid("e7730dd4-0dbd-45ca-937a-3ff9af6ba29b"),
+                            Id = new Guid("7799699d-5acb-49b7-9ffd-70bca31abf2f"),
                             ActivityId = new Guid("175a8012-6200-4180-915b-f3e4d604923d"),
                             UserId = new Guid("59c5b94d-8015-48cd-bd86-0dbe486c4719")
                         },
                         new
                         {
-                            Id = new Guid("4828ac00-f59d-4993-a5de-03eae2816b1f"),
+                            Id = new Guid("438b139c-48f4-45d7-842a-2f0cc2bc3de7"),
                             ActivityId = new Guid("8d69e4e8-62b1-465d-bfc7-1a94c3d07a71"),
                             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc")
                         },
                         new
                         {
-                            Id = new Guid("aaaca29b-657e-4b67-8fcf-68864cb1b07b"),
+                            Id = new Guid("b3150126-9986-4dce-a92a-cffffadeeb11"),
                             ActivityId = new Guid("64f3cda1-70cf-4b52-99b2-d9c60a5b5898"),
                             UserId = new Guid("8e98b8c4-6cf7-4817-b106-ffc59cbe83cc")
                         });

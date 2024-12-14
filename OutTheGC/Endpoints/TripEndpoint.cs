@@ -1,6 +1,7 @@
 ﻿using OutTheGC.Models;
 using OutTheGC.Interfaces;
 using OutTheGC.DTOs;
+using System.Net.NetworkInformation;
 
 namespace OutTheGC.Endpoints;
 
@@ -245,23 +246,64 @@ public static class TripEndpoint
         .Produces<List<Activity>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapPost("/trip/share", async (ITripService tripService, EmailDTO sendEmail) =>
+        group.MapPost("/trip/invite", async (ITripService tripService, EmailDTO sendEmail) =>
         {
-            var shareTrip = await tripService.ShareTripViaEmailAsync(sendEmail);
-
-            if (shareTrip == null)
-            {
-                return Results.NotFound(new
-                {
-                    error = "The user does not exist."
-                });
-            }
-            await tripService.ShareTripViaEmailAsync(sendEmail);
-
-            return Results.Ok(new { message = "Email has been sent!" });
+            return await tripService.ShareTripViaEmailAsync(sendEmail);
         })
         .WithOpenApi()
         .Produces<IResult>(StatusCodes.Status200OK);
+
+        group.MapGet("/trip/{userId}/invitations", async (ITripService tripService, Guid userId, string? status) =>
+        {
+            var invitations = await tripService.GetListofUserInvitaionsAsync(userId, status);
+
+            if (!invitations.Any())
+            {
+                return Results.NotFound(new
+                {
+                    error = "The user has no invitations."
+                });
+            }
+
+            return Results.Ok(invitations);
+        })
+        .WithOpenApi()
+        .Produces<List<TripInvitation>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
+
+        group.MapDelete("/trip/invitation/{invitationId}", async (ITripService tripService, Guid invitationId, Guid userId) =>
+        {
+            var invitationToDelete = await tripService.DeleteInvitationAsync(invitationId, userId);
+
+            if (invitationToDelete == null)
+            {
+                return Results.NotFound(new
+                {
+                    error = "The invitation does not exist or you are not the sender of the invitation."
+                });
+            }
+
+            return Results.Ok(new { message = "Invitation has been deleted!" });
+
+        })
+        .WithOpenApi()
+        .Produces<TripInvitation>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
+
+        group.MapPatch("/trip/invitation/{invitationId}", async (ITripService tripService, Guid invitationId, string response) =>
+        {
+            var results = await tripService.RespondToInvitationAsync(invitationId, response);
+
+            if (results == null)
+            {
+                return Results.NotFound("Invitation does not exist");
+            }
+
+            return Results.Ok(new { message = results.Status == InvitationStatus.approved ? "Invitation has been approved" : "Invitation has been denied" });
+        })
+        .WithOpenApi()
+        .Produces<TripInvitation>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
     }
 }
 

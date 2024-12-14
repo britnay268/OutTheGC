@@ -5,9 +5,7 @@ using OutTheGC.Models;
 using OutTheGC.DTOs;
 using MimeKit;
 using MailKit.Net.Smtp;
-using Org.BouncyCastle.Crypto.Macs;
 using MailKit.Security;
-using static System.Net.WebRequestMethods;
 
 namespace OutTheGC.Repositories;
 
@@ -194,21 +192,24 @@ public class TripRepository : ITripRepository
     public async Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail)
     {
         var userSharingTrip = await dbContext.Users
-                    .Where(u => u.Id == sendEmail.UserId)
+                    .Where(u => u.Id == sendEmail.SenderId)
                     .Select(u => u.FullName)
                     .SingleOrDefaultAsync();
 
-        if (userSharingTrip == null)
-        {
-            return null;
-        }
 
-        var tripToBeShared = await dbContext.Trips.Where(t => t.Id == sendEmail.TripId && t.UserId == sendEmail.UserId).Select(t => t.Title).SingleOrDefaultAsync();
+        var tripToBeShared = await dbContext.Trips.Where(t => t.Id == sendEmail.TripId && t.UserId == sendEmail.SenderId).Select(t => t.Title).SingleOrDefaultAsync();
 
 
+        //if (tripToBeShared == null)
+        //{
+        //    throw new Exception("User is not an owner of the trip");
+        //}
         if (tripToBeShared == null)
         {
-            throw new Exception("User is not an owner of the trip");
+            return Results.NotFound(new
+            {
+                error = "The specified trip was not found, or the sender is not authorized."
+            });
         }
 
         var gmailEmail = _config["GmailEmail"];
@@ -216,7 +217,7 @@ public class TripRepository : ITripRepository
 
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress("Britnay's Out The GC App", gmailEmail));
-        message.To.Add(new MailboxAddress("", sendEmail.Recipient));
+        message.To.Add(new MailboxAddress("", sendEmail.RecipientEmail));
         message.Subject = $"Out The GC Trip Invitation";
         var builder = new BodyBuilder
         {
@@ -233,7 +234,95 @@ public class TripRepository : ITripRepository
             client.Disconnect(true);
         }
 
-        return Results.Ok();
+        var findRecipient = await dbContext.Users.Where(u => u.Email == sendEmail.RecipientEmail).Select(u => u.Id).SingleOrDefaultAsync();
+
+        TripInvitation invitationCreation = new TripInvitation
+        {
+            SenderId = sendEmail.SenderId,
+            TripId = sendEmail.TripId,
+            RecipientEmail = sendEmail.RecipientEmail,
+            SentDate = DateTime.Now,
+            ExpirationDate = DateTime.Now.AddDays(14),
+            RecipientId = findRecipient == null ? null : findRecipient,
+            Status = InvitationStatus.pending
+        };
+
+        dbContext.TripInvitations.Add(invitationCreation);
+        await dbContext.SaveChangesAsync();
+
+        return Results.Ok(new { message = "Email has been sent!" });
+    }
+
+    public async Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, string? status = null)
+    {
+        InvitationStatus? parsedStatus = null;
+
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            if (!Enum.TryParse<InvitationStatus>(status, true, out var result))
+            {
+                throw new ArgumentException($"Invalid status: {status}. Valid values are: {string.Join(", ", Enum.GetNames(typeof(InvitationStatus)))}");
+            }
+
+            parsedStatus = result;
+        }
+
+        var invitations = dbContext.TripInvitations.Where(ti => ti.RecipientId == userId);
+
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            invitations = invitations.Where(i => i.Status == parsedStatus);
+        }
+
+        return await invitations.ToListAsync();
+    }
+
+    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string response)
+    {
+        InvitationStatus? parsedStatus = null;
+
+        if (!string.IsNullOrWhiteSpace(response))
+        {
+            if (!Enum.TryParse<InvitationStatus>(response, true, out var result))
+            {
+                throw new ArgumentException($"Invalid status: {response}. Valid values are: approved or denied");
+            }
+
+            parsedStatus = result;
+        }
+
+        if (parsedStatus != InvitationStatus.approved && parsedStatus != InvitationStatus.denied)
+        {
+            throw new ArgumentException("Invalid status. Only 'approved' or 'denied' are allowed.");
+        }
+
+        var invitation = await dbContext.TripInvitations.SingleOrDefaultAsync(ti => ti.Id == invitationId);
+
+        if (invitation == null)
+        {
+            return null;
+        }
+
+        invitation.Status = (InvitationStatus)parsedStatus;
+
+        await dbContext.SaveChangesAsync();
+
+        return invitation;
+    }
+
+    public async Task<TripInvitation> DeleteInvitationAsync(Guid invitationId, Guid userId)
+    {
+        var removeInvitation = await dbContext.TripInvitations.SingleOrDefaultAsync(ti => ti.Id == invitationId && ti.SenderId == userId);
+
+        if (removeInvitation == null)
+        {
+            return null;
+        }
+
+        dbContext.TripInvitations.Remove(removeInvitation);
+        await dbContext.SaveChangesAsync();
+
+        return removeInvitation;
     }
 
 }
