@@ -268,8 +268,27 @@ public static class TripEndpoint
             return Results.Ok(invitations);
         })
         .WithOpenApi()
-        .Produces<List<Trip>>(StatusCodes.Status200OK)
+        .Produces<List<TripInvitation>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
+
+        group.MapDelete("/trip/{invitationId}/invitation", async (ITripService tripService, Guid invitationId, Guid userId) =>
+        {
+            var invitationToDelete = await tripService.DeleteInvitationAsync(invitationId, userId);
+
+            if (invitationToDelete == null)
+            {
+                return Results.NotFound(new
+                {
+                    error = "The invitation does not exist or you are not the sender of the invitation."
+                });
+            }
+
+            return Results.Ok(new { message = "Invitation has been deleted!" });
+
+        })
+        .WithOpenApi()
+        .Produces<TripInvitation>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
     }
 }
 

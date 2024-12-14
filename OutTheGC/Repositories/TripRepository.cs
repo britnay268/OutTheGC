@@ -5,9 +5,7 @@ using OutTheGC.Models;
 using OutTheGC.DTOs;
 using MimeKit;
 using MailKit.Net.Smtp;
-using Org.BouncyCastle.Crypto.Macs;
 using MailKit.Security;
-using static System.Net.WebRequestMethods;
 
 namespace OutTheGC.Repositories;
 
@@ -286,7 +284,17 @@ public class TripRepository : ITripRepository
 
     public async Task<TripInvitation> DeleteInvitationAsync(Guid invitationId, Guid userId)
     {
-        throw new NotImplementedException();
+        var removeInvitation = await dbContext.TripInvitations.SingleOrDefaultAsync(ti => ti.Id == invitationId && ti.SenderId == userId);
+
+        if (removeInvitation == null)
+        {
+            return null;
+        }
+
+        dbContext.TripInvitations.Remove(removeInvitation);
+        await dbContext.SaveChangesAsync();
+
+        return removeInvitation;
     }
 
 }
