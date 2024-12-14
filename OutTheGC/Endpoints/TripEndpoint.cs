@@ -246,7 +246,7 @@ public static class TripEndpoint
         .Produces<List<Activity>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapPost("/trip/share", async (ITripService tripService, EmailDTO sendEmail) =>
+        group.MapPost("/trip/invite", async (ITripService tripService, EmailDTO sendEmail) =>
         {
             return await tripService.ShareTripViaEmailAsync(sendEmail);
         })
@@ -290,7 +290,7 @@ public static class TripEndpoint
         .Produces<TripInvitation>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapPatch("/trip/invitation/{invitationId}/response", async (ITripService tripService, Guid invitationId, string response) =>
+        group.MapPatch("/trip/invitation/{invitationId}", async (ITripService tripService, Guid invitationId, string response) =>
         {
             var results = await tripService.RespondToInvitationAsync(invitationId, response);
 
