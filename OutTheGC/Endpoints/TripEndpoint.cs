@@ -299,7 +299,7 @@ public static class TripEndpoint
                 return Results.NotFound("Invitation does not exist");
             }
 
-            return Results.Ok(results.Status == InvitationStatus.approved ? "Invitation has been approved" : "Invitation has been denied");
+            return Results.Ok(new { message = results.Status == InvitationStatus.approved ? "Invitation has been approved" : "Invitation has been denied" });
         })
         .WithOpenApi()
         .Produces<TripInvitation>(StatusCodes.Status200OK)
