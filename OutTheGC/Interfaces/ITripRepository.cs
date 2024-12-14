@@ -23,7 +23,7 @@ public interface ITripRepository
 
     Task<IResult> ShareTripViaEmailAsync(EmailDTO sendEmail);
 
-    Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, InvitationStatus? status = null);
+    Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, string? status = null);
 
     Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, InvitationStatus status);
 

@@ -1,6 +1,7 @@
 ﻿using OutTheGC.Models;
 using OutTheGC.Interfaces;
 using OutTheGC.DTOs;
+using System.Net.NetworkInformation;
 
 namespace OutTheGC.Endpoints;
 
@@ -247,20 +248,28 @@ public static class TripEndpoint
 
         group.MapPost("/trip/share", async (ITripService tripService, EmailDTO sendEmail) =>
         {
-            var shareTrip = await tripService.ShareTripViaEmailAsync(sendEmail);
-
-            if (shareTrip == null)
-            {
-                return Results.NotFound(new
-                {
-                    error = "The user does not exist."
-                });
-            }
-
-            return Results.Ok(new { message = "Email has been sent!" });
+            return await tripService.ShareTripViaEmailAsync(sendEmail);
         })
         .WithOpenApi()
         .Produces<IResult>(StatusCodes.Status200OK);
+
+        group.MapGet("/trip/{userId}/invitations", async (ITripService tripService, Guid userId, string? status) =>
+        {
+            var invitations = await tripService.GetListofUserInvitaionsAsync(userId, status);
+
+            if (!invitations.Any())
+            {
+                return Results.NotFound(new
+                {
+                    error = "The user has no invitations."
+                });
+            }
+
+            return Results.Ok(invitations);
+        })
+        .WithOpenApi()
+        .Produces<List<Trip>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }
 

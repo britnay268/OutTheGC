@@ -3,9 +3,9 @@ namespace OutTheGC.Models;
 
 public enum InvitationStatus
 {
-    Pending,
-    Approved,
-    Denied
+    pending,
+    approved,
+    denied
 }
 
 public class TripInvitation

@@ -61,7 +61,7 @@ public class TripService : ITripService
         return await _tripRepository.ShareTripViaEmailAsync(sendEmail);
     }
 
-    public async Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, InvitationStatus? status = null)
+    public async Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, string? status = null)
     {
         return await _tripRepository.GetListofUserInvitaionsAsync(userId, status);
     }

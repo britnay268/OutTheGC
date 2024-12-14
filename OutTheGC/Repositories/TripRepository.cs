@@ -198,17 +198,20 @@ public class TripRepository : ITripRepository
                     .Select(u => u.FullName)
                     .SingleOrDefaultAsync();
 
-        if (userSharingTrip == null)
-        {
-            return null;
-        }
 
         var tripToBeShared = await dbContext.Trips.Where(t => t.Id == sendEmail.TripId && t.UserId == sendEmail.SenderId).Select(t => t.Title).SingleOrDefaultAsync();
 
 
+        //if (tripToBeShared == null)
+        //{
+        //    throw new Exception("User is not an owner of the trip");
+        //}
         if (tripToBeShared == null)
         {
-            throw new Exception("User is not an owner of the trip");
+            return Results.NotFound(new
+            {
+                error = "The specified trip was not found, or the sender is not authorized."
+            });
         }
 
         var gmailEmail = _config["GmailEmail"];
@@ -243,18 +246,37 @@ public class TripRepository : ITripRepository
             SentDate = DateTime.Now,
             ExpirationDate = DateTime.Now.AddDays(14),
             RecipientId = findRecipient == null ? null : findRecipient,
-            Status = InvitationStatus.Pending
+            Status = InvitationStatus.pending
         };
 
         dbContext.TripInvitations.Add(invitationCreation);
         await dbContext.SaveChangesAsync();
 
-        return Results.Ok();
+        return Results.Ok(new { message = "Email has been sent!" });
     }
 
-    public async Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, InvitationStatus? status = null)
+    public async Task<List<TripInvitation>> GetListofUserInvitaionsAsync(Guid userId, string? status = null)
     {
-        throw new NotImplementedException();
+        InvitationStatus? parsedStatus = null;
+
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            if (!Enum.TryParse<InvitationStatus>(status, true, out var result))
+            {
+                throw new ArgumentException($"Invalid status: {status}. Valid values are: {string.Join(", ", Enum.GetNames(typeof(InvitationStatus)))}");
+            }
+
+            parsedStatus = result;
+        }
+
+        var invitations = dbContext.TripInvitations.Where(ti => ti.RecipientId == userId);
+
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            invitations = invitations.Where(i => i.Status == parsedStatus);
+        }
+
+        return await invitations.ToListAsync();
     }
 
     public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, InvitationStatus status)
