@@ -290,13 +290,13 @@ public static class TripEndpoint
         .Produces<TripInvitation>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status204NoContent);
 
-        group.MapPatch("/trip/invitation/{invitationId}/response", async (ITripService tripService, Guid invitationId, InvitationStatus status) =>
+        group.MapPatch("/trip/invitation/{invitationId}/response", async (ITripService tripService, Guid invitationId, string status) =>
         {
             var results = await tripService.RespondToInvitationAsync(invitationId, status);
 
             if (results == null)
             {
-                return Results.NotFound("Inviataion does not exist");
+                return Results.NotFound("Invitation does not exist");
             }
 
             return Results.Ok("Invitation status has been updated");

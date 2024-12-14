@@ -277,8 +277,25 @@ public class TripRepository : ITripRepository
         return await invitations.ToListAsync();
     }
 
-    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, InvitationStatus status)
+    public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, string status)
     {
+        InvitationStatus? parsedStatus = null;
+
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            if (!Enum.TryParse<InvitationStatus>(status, true, out var result))
+            {
+                throw new ArgumentException($"Invalid status: {status}. Valid values are: {string.Join(", ", Enum.GetNames(typeof(InvitationStatus)))}");
+            }
+
+            parsedStatus = result;
+        }
+
+        if (parsedStatus != InvitationStatus.approved && parsedStatus != InvitationStatus.denied)
+        {
+            throw new ArgumentException("Invalid status. Only 'approved' or 'denied' are allowed.");
+        }
+
         var invitation = await dbContext.TripInvitations.SingleOrDefaultAsync(ti => ti.Id == invitationId);
 
         if (invitation == null)
@@ -286,7 +303,7 @@ public class TripRepository : ITripRepository
             return null;
         }
 
-        invitation.Status = status;
+        invitation.Status = (InvitationStatus)parsedStatus;
 
         await dbContext.SaveChangesAsync();
 
