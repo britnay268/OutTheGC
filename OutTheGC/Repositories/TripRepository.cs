@@ -279,7 +279,18 @@ public class TripRepository : ITripRepository
 
     public async Task<TripInvitation> RespondToInvitationAsync(Guid invitationId, InvitationStatus status)
     {
-        throw new NotImplementedException();
+        var invitation = await dbContext.TripInvitations.SingleOrDefaultAsync(ti => ti.Id == invitationId);
+
+        if (invitation == null)
+        {
+            return null;
+        }
+
+        invitation.Status = status;
+
+        await dbContext.SaveChangesAsync();
+
+        return invitation;
     }
 
     public async Task<TripInvitation> DeleteInvitationAsync(Guid invitationId, Guid userId)

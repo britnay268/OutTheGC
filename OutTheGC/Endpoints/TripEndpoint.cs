@@ -271,7 +271,7 @@ public static class TripEndpoint
         .Produces<List<TripInvitation>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapDelete("/trip/{invitationId}/invitation", async (ITripService tripService, Guid invitationId, Guid userId) =>
+        group.MapDelete("/trip/invitation/{invitationId}", async (ITripService tripService, Guid invitationId, Guid userId) =>
         {
             var invitationToDelete = await tripService.DeleteInvitationAsync(invitationId, userId);
 
@@ -285,6 +285,21 @@ public static class TripEndpoint
 
             return Results.Ok(new { message = "Invitation has been deleted!" });
 
+        })
+        .WithOpenApi()
+        .Produces<TripInvitation>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent);
+
+        group.MapPatch("/trip/invitation/{invitationId}/response", async (ITripService tripService, Guid invitationId, InvitationStatus status) =>
+        {
+            var results = await tripService.RespondToInvitationAsync(invitationId, status);
+
+            if (results == null)
+            {
+                return Results.NotFound("Inviataion does not exist");
+            }
+
+            return Results.Ok("Invitation status has been updated");
         })
         .WithOpenApi()
         .Produces<TripInvitation>(StatusCodes.Status200OK)
